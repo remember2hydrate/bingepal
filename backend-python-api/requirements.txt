@@ -1,0 +1,4 @@
+fastapi
+uvicorn[standard]
+httpx        # for calling external APIs (e.g. TMDb, AniList, OpenLibrary, RAWG.io, )
+pydantic     # for data models
