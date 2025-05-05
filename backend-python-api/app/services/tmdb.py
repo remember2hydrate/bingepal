@@ -2,6 +2,7 @@
 
 import os
 import httpx
+from app.utils.logger import logger
 from dotenv import load_dotenv
 from app.models import SearchResult
 
@@ -15,9 +16,16 @@ async def search(query: str, type: str) -> list[SearchResult]:
     url = f"{BASE_URL}/{endpoint}"
     params = {"api_key": API_KEY, "query": query}
 
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url, params=params)
-        data = response.json()
+     logger.info(f"[TMDb] Searching '{query}' as type '{type}'")
+
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(url, params=params)
+            response.raise_for_status()
+            data = response.json()
+    except Exception as e:
+        logger.error(f"[TMDb] API error: {e}")
+        return []
 
     results = []
     for item in data.get("results", [])[:10]:
