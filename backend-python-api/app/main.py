@@ -6,6 +6,8 @@ app = FastAPI(
     version="0.1.0"
 )
 
-@app.get("/health")
-def health_check():
-    return {"status": "ok", "message": "BingePal API is alive"}
+app.include_router(search_router, prefix="/api")
+
+    #@app.get("/health")
+    #def health_check():
+    #    return {"status": "ok", "message": "BingePal API is alive"}

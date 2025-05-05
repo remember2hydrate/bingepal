@@ -1,0 +1,24 @@
+# Route handler
+
+from fastapi import APIRouter, Query, HTTPException
+from app.models import SearchResult
+from app.services import tmdb, anilist, rawg, mangadex, openlibrary
+
+router = APIRouter()
+
+@router.get("/search", response_model=list[SearchResult])
+async def search(query: str = Query(...), type: str = Query(...)):
+    type = type.lower()
+
+    if type == "movie" or type == "series":
+        return await tmdb.search(query, type)
+    elif type == "anime":
+        return await anilist.search(query)
+    elif type == "game":
+        return await rawg.search(query)
+    elif type == "manga":
+        return await mangadex.search(query)
+    elif type == "book":
+        return await openlibrary.search(query)
+    else:
+        raise HTTPException(status_code=400, detail="Invalid media type")
