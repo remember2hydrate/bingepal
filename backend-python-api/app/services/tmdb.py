@@ -29,17 +29,18 @@ async def search(query: str, type: str) -> list[SearchResult]:
 
     results = []
     for item in data.get("results", [])[:10]:
+        year_raw = item.get("release_date") or item.get("first_air_date")
+        year = int(year_raw[:4]) if year_raw else None
         results.append(SearchResult(
             id=str(item["id"]),
-            title=item.get("title") or item.get("name"),
+            title=item.get("title") or item.get("name") or "Unknown Title",
             type=type,
-            description=item.get("overview"),
-            poster_url=f"https://image.tmdb.org/t/p/w500{item.get('poster_path')}" if item.get("poster_path") else None,
-            year=(item.get("release_date") or item.get("first_air_date") or "")[:4],
+            description=item.get("overview") or "No description available.",
+            poster_url=f"https://image.tmdb.org/t/p/w500{item['poster_path']}" if item.get("poster_path") else None,
+            year=year,
             source="tmdb",
-            total_seasons=item.get("number_of_seasons"),  # May not exist in search results
-            total_episodes=None,  # Fill via `/episodes` endpoint
-            average_duration=None  # Not available in TMDb search response
+            total_seasons=None,  # only fetched in detail view
+            total_episodes=None,
+            average_duration=None
         ))
-
     return results
