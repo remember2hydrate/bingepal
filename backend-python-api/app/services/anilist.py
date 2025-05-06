@@ -1,3 +1,62 @@
 # anime handler
 
+import httpx
+from app.models import SearchResult
 from app.utils.logger import logger
+
+API_URL = "https://graphql.anilist.co"
+
+query_template = """
+query ($search: String) {
+  Page(perPage: 10) {
+    media(search: $search, type: ANIME) {
+      id
+      title {
+        romaji
+        english
+      }
+      description(asHtml: false)
+      coverImage {
+        large
+      }
+      startDate {
+        year
+      }
+      episodes
+      duration
+    }
+  }
+}
+"""
+
+async def search(query: str) -> list[SearchResult]:
+    logger.info(f"[AniList] Searching '{query}'")
+
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.post(API_URL, json={
+                "query": query_template,
+                "variables": {"search": query}
+            })
+            response.raise_for_status()
+            data = response.json()
+    except Exception as e:
+        logger.error(f"[AniList] API error: {e}")
+        return []
+
+    results = []
+    for item in data["data"]["Page"]["media"]:
+        results.append(SearchResult(
+            id=str(item["id"]),
+            title=item["title"]["english"] or item["title"]["romaji"],
+            type="anime",
+            description=item["description"],
+            poster_url=item["coverImage"]["large"],
+            year=item["startDate"]["year"],
+            source="anilist",
+            total_episodes=item.get("episodes"),
+            average_duration=item.get("duration"),
+            total_seasons=None
+        ))
+
+    return results
