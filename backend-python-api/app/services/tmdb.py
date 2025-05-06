@@ -15,8 +15,8 @@ async def search(query: str, type: str) -> list[SearchResult]:
     endpoint = "movie" if type == "movie" else "tv"
     url = f"{BASE_URL}/{endpoint}"
     params = {"api_key": API_KEY, "query": query}
-
-     logger.info(f"[TMDb] Searching '{query}' as type '{type}'")
+    
+    logger.info(f"[TMDb] Searching '{query}' as type '{type}'")
 
     try:
         async with httpx.AsyncClient() as client:
