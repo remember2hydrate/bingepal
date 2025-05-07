@@ -1,6 +1,6 @@
 # Route handler
 
-from fastapi import APIRouter, Query, HTTPException
+from fastapi import APIRouter, Query, HTTPException, Request
 from app.models import SearchResult
 from app.services import tmdb, anilist, rawg, mangadex, openlibrary
 from slowapi import Limiter
@@ -11,7 +11,7 @@ router = APIRouter()
 
 @router.get("/search", response_model=list[SearchResult])
 @limiter.limit("10/minute")
-async def search(query: str = Query(...), type: str = Query(...)):
+async def search(query: str = Query(...), type: str = Query(...),request: Request):
     type = type.lower()
 
     if type == "movie" or type == "series":
