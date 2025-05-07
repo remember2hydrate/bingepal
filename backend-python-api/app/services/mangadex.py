@@ -94,3 +94,35 @@ async def get_detail(id: str) -> SearchResult:
         total_episodes=None,
         average_duration=None
     )
+
+async def get_chapters(id: str) -> list[ChapterOut]:
+    url = "https://api.mangadex.org/chapter"
+    params = {
+        "manga": id,
+        "translatedLanguage[]": "en",
+        "limit": 100,
+        "order[chapter]": "asc"
+    }
+
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(url, params=params)
+            response.raise_for_status()
+            data = response.json()
+    except Exception as e:
+        logger.error(f"[MangaDex] Chapter fetch failed: {e}")
+        return []
+
+    chapters = []
+    for ch in data.get("data", []):
+        attr = ch["attributes"]
+        chapters.append(ChapterOut(
+            season=None,
+            number=int(attr["chapter"]) if attr.get("chapter", "").isdigit() else 0,
+            title=attr.get("title") or "Untitled",
+            air_date=attr.get("publishAt")
+        ))
+
+    return chapters
+
+

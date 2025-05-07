@@ -1,4 +1,4 @@
-# anime handler
+# anime handler from AniList and Jikan for episodes
 
 import httpx
 from app.models import SearchResult
@@ -118,4 +118,25 @@ async def get_detail(id: str) -> SearchResult:
         total_seasons=None,
         total_episodes=data.get("episodes"),
         average_duration=data.get("duration")
-    )
+    )   dsds
+
+async def get_episodes(id: str) -> list[ChapterOut]:
+try:
+    async with httpx.AsyncClient() as client:
+        response = await client.get(f"https://api.jikan.moe/v4/anime/{id}/episodes")
+        response.raise_for_status()
+        data = response.json()
+except Exception as e:
+    logger.error(f"[Jikan] Episode fetch failed: {e}")
+    return []
+
+chapters = []
+for ep in data.get("data", []):
+    chapters.append(ChapterOut(
+        season=None,
+        number=ep["mal_id"],
+        title=ep["title"],
+        air_date=ep.get("aired", {}).get("date")
+    ))
+
+return chapters

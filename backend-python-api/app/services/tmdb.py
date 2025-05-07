@@ -80,3 +80,35 @@ async def get_detail(id: str, type: str) -> SearchResult:
         total_episodes=data.get("number_of_episodes") if type == "series" else None,
         average_duration=(data.get("runtime") or (data.get("episode_run_time") or [None])[0])
     )
+
+async def get_episodes(id: str) -> list[ChapterOut]:
+    url = f"https://api.themoviedb.org/3/tv/{id}"
+    params = {"api_key": API_KEY}
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(url, params=params)
+            data = response.json()
+    except Exception as e:
+        logger.error(f"[TMDb] Episode fetch failed: {e}")
+        return []
+
+    chapters = []
+    for season in data.get("seasons", []):
+        season_num = season["season_number"]
+        try:
+            season_url = f"{url}/season/{season_num}"
+            season_resp = await client.get(season_url, params=params)
+            season_data = season_resp.json()
+
+            for ep in season_data.get("episodes", []):
+                chapters.append(ChapterOut(
+                    season=season_num,
+                    number=ep["episode_number"],
+                    title=ep["name"],
+                    air_date=ep.get("air_date")
+                ))
+        except:
+            continue
+
+    return chapters
+
