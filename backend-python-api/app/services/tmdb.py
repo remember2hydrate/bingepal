@@ -48,3 +48,35 @@ async def search(query: str, type: str) -> list[SearchResult]:
             average_duration=None
         ))
     return results
+
+async def get_detail(id: str, type: str) -> SearchResult:
+    logger.info(f"[TMDb] Fetching detail for {type} with ID: {id}")
+
+    endpoint = "movie" if type == "movie" else "tv"
+    url = f"https://api.themoviedb.org/3/{endpoint}/{id}"
+    params = {"api_key": API_KEY}
+
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(url, params=params)
+            response.raise_for_status()
+            data = response.json()
+    except Exception as e:
+        logger.error(f"[TMDb] Detail API error: {e}")
+        raise
+
+    return SearchResult(
+        id=str(data["id"]),
+        title=data.get("title") or data.get("name"),
+        type=type,
+        description=data.get("overview") or "No description available.",
+        poster_url=f"https://image.tmdb.org/t/p/w500{data['poster_path']}" if data.get("poster_path") else None,
+        year=(data.get("release_date") or data.get("first_air_date") or "")[:4],
+        source="tmdb",
+        genres=[g["name"] for g in data.get("genres", [])],
+        rating=data.get("vote_average"),
+        rating_count=data.get("vote_count"),
+        total_seasons=data.get("number_of_seasons") if type == "series" else None,
+        total_episodes=data.get("number_of_episodes") if type == "series" else None,
+        average_duration=(data.get("runtime") or data.get("episode_run_time", [0])[0])
+    )

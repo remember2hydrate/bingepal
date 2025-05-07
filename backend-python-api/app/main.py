@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from app.api.search import router as search_router
+from app.api.detail import router as detail_router
 
 app = FastAPI(
     title="BingePal API",
@@ -8,6 +9,7 @@ app = FastAPI(
 )
 
 app.include_router(search_router, prefix="/api")
+app.include_router(detail_router, prefix="/api")
 
 #@app.get("/health")
 #def health_check():
