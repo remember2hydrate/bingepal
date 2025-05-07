@@ -6,11 +6,6 @@ from app.services import tmdb, anilist, mangadex
 router = APIRouter()
 
 
-class ChapterOut(BaseModel):
-    season: Optional[int] = None  # only for series/anime
-    number: int
-    title: str
-    air_date: Optional[str] = None
 
 
 @router.get("/chapter", response_model=List[ChapterOut])

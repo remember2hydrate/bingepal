@@ -5,7 +5,7 @@ import httpx
 from app.utils.logger import logger
 from dotenv import load_dotenv
 from app.models import SearchResult
-from app.api.chapter import ChapterOut
+from app.models import ChapterOut
 
 load_dotenv()
 
