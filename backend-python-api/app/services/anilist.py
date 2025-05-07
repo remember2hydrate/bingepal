@@ -3,6 +3,7 @@
 import httpx
 from app.models import SearchResult
 from app.utils.logger import logger
+from app.api.chapter import ChapterOut
 
 API_URL = "https://graphql.anilist.co"
 

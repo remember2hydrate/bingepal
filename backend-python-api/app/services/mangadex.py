@@ -3,6 +3,7 @@
 import httpx
 from app.models import SearchResult
 from app.utils.logger import logger
+from app.api.chapter import ChapterOut
 
 BASE_URL = "https://api.mangadex.org"
 
