@@ -1,10 +1,14 @@
 from fastapi import APIRouter, Query, HTTPException
 from app.models import SearchResult
 from app.services import tmdb, anilist, rawg, openlibrary, mangadex
+from slowapi import Limiter
+from slowapi.util import get_remote_address
+from app.main import limiter
 
 router = APIRouter()
 
 @router.get("/detail", response_model=SearchResult)
+@limiter.limit("10/minute")
 async def get_detail(id: str = Query(...), type: str = Query(...)):
     type = type.lower()
 

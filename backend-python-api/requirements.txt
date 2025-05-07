@@ -1,4 +1,5 @@
 fastapi
+slowapi
 uvicorn[standard]
 python-dotenv
 httpx        # for calling external APIs (e.g. TMDb, AniList, OpenLibrary, RAWG.io)
