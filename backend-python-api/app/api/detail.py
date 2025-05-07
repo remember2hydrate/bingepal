@@ -8,7 +8,6 @@ from app.utils.limiter import limiter
 router = APIRouter()
 
 @router.get("/detail", response_model=SearchResult)
-@limiter.limit("10/minute")
 async def get_detail(id: str = Query(...), type: str = Query(...)):
     type = type.lower()
 

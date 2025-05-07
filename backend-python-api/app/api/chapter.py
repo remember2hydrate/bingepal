@@ -8,7 +8,6 @@ router = APIRouter()
 
 
 @router.get("/chapter", response_model=List[ChapterOut])
-@limiter.limit("10/minute")
 async def get_chapters(type: str = Query(...), id: str = Query(...)):
     type = type.lower()
 
