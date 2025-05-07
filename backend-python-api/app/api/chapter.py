@@ -3,6 +3,7 @@ from typing import List, Optional
 from pydantic import BaseModel
 from app.services import tmdb, anilist, mangadex
 from app.utils.limiter import limiter
+from app.models import ChapterOut
 
 router = APIRouter()
 
