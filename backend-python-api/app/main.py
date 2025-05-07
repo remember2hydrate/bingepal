@@ -6,7 +6,7 @@ from slowapi.util import get_remote_address
 from fastapi import FastAPI, Request
 from slowapi.errors import RateLimitExceeded
 from fastapi.middleware.cors import CORSMiddleware
-from app.models.db import Base, engine
+from app.models import Base, engine
 from app.api.chapter import router as chapter_router
 from app.utils.limiter import limiter
 

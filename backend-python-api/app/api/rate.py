@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.future import select
-from app.models.db import SessionLocal, Rating
+from app.models import SessionLocal, Rating
 from pydantic import BaseModel
 from typing import Optional, List
 import datetime
