@@ -78,5 +78,5 @@ async def get_detail(id: str, type: str) -> SearchResult:
         rating_count=data.get("vote_count"),
         total_seasons=data.get("number_of_seasons") if type == "series" else None,
         total_episodes=data.get("number_of_episodes") if type == "series" else None,
-        average_duration=(data.get("runtime") or data.get("episode_run_time", [0])[0])
+        average_duration=(data.get("runtime") or (data.get("episode_run_time") or [None])[0])
     )
