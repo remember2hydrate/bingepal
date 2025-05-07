@@ -54,3 +54,43 @@ async def search(query: str) -> list[SearchResult]:
         ))
 
     return results
+
+async def get_detail(id: str) -> SearchResult:
+    logger.info(f"[MangaDex] Fetching detail for manga ID: {id}")
+
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(f"https://api.mangadex.org/manga/{id}", params={"includes[]": "cover_art"})
+            response.raise_for_status()
+            data = response.json()["data"]
+    except Exception as e:
+        logger.error(f"[MangaDex] API error: {e}")
+        raise
+
+    attr = data["attributes"]
+    title = attr["title"].get("en") or list(attr["title"].values())[0]
+    description = attr.get("description", {}).get("en") or "No description."
+    genres = [t["attributes"]["name"]["en"] for t in attr.get("tags", [])]
+
+    cover = None
+    for rel in data["relationships"]:
+        if rel["type"] == "cover_art":
+            cover = rel["attributes"].get("fileName")
+
+    poster_url = f"https://uploads.mangadex.org/covers/{data['id']}/{cover}" if cover else None
+
+    return SearchResult(
+        id=id,
+        title=title,
+        type="manga",
+        description=description,
+        poster_url=poster_url,
+        year=None,
+        source="mangadex",
+        genres=genres,
+        rating=None,
+        rating_count=None,
+        total_seasons=None,
+        total_episodes=None,
+        average_duration=None
+    )

@@ -6,7 +6,7 @@ from app.utils.logger import logger
 
 API_URL = "https://graphql.anilist.co"
 
-query_template = """
+search_query = """
 query ($search: String) {
   Page(perPage: 10) {
     media(search: $search, type: ANIME) {
@@ -31,13 +31,36 @@ query ($search: String) {
 }
 """
 
+detail_query = """
+query ($id: Int) {
+  Media(id: $id, type: ANIME) {
+    id
+    title {
+      romaji
+      english
+    }
+    description(asHtml: false)
+    coverImage {
+      large
+    }
+    startDate {
+      year
+    }
+    episodes
+    duration
+    genres
+    averageScore
+  }
+}
+"""
+
 async def search(query: str) -> list[SearchResult]:
     logger.info(f"[AniList] Searching '{query}'")
 
     try:
         async with httpx.AsyncClient() as client:
             response = await client.post(API_URL, json={
-                "query": query_template,
+                "query": search_query,
                 "variables": {"search": query}
             })
             response.raise_for_status()
@@ -65,3 +88,34 @@ async def search(query: str) -> list[SearchResult]:
       ))
 
     return results
+
+async def get_detail(id: str) -> SearchResult:
+    logger.info(f"[AniList] Fetching detail for anime ID: {id}")
+
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.post(API_URL, json={
+                "query": detail_query,
+                "variables": {"id": int(id)}
+            })
+            response.raise_for_status()
+            data = response.json()["data"]["Media"]
+    except Exception as e:
+        logger.error(f"[AniList] API error: {e}")
+        raise
+
+    return SearchResult(
+        id=str(data["id"]),
+        title=data["title"]["english"] or data["title"]["romaji"],
+        type="anime",
+        description=data.get("description"),
+        poster_url=data["coverImage"]["large"],
+        year=data["startDate"]["year"],
+        source="anilist",
+        genres=data.get("genres"),
+        rating=(data.get("averageScore") or 0) / 10,
+        rating_count=None,
+        total_seasons=None,
+        total_episodes=data.get("episodes"),
+        average_duration=data.get("duration")
+    )

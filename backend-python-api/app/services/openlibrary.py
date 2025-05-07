@@ -37,3 +37,31 @@ async def search(query: str) -> list[SearchResult]:
         ))
 
     return results
+
+async def get_detail(id: str) -> SearchResult:
+    logger.info(f"[OpenLibrary] Fetching detail for book ID: {id}")
+
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(f"https://openlibrary.org/works/{id}.json")
+            response.raise_for_status()
+            data = response.json()
+    except Exception as e:
+        logger.error(f"[OpenLibrary] API error: {e}")
+        raise
+
+    return SearchResult(
+        id=id,
+        title=data.get("title"),
+        type="book",
+        description=(data.get("description") or {}).get("value") if isinstance(data.get("description"), dict) else data.get("description"),
+        poster_url=None,  # OpenLibrary doesn’t provide cover here
+        year=None,
+        source="openlibrary",
+        genres=[s for s in data.get("subjects", [])][:5],
+        rating=None,
+        rating_count=None,
+        total_seasons=None,
+        total_episodes=None,
+        average_duration=None
+    )
