@@ -32,17 +32,22 @@ async def search(query: str) -> list[SearchResult]:
 
     results = []
     for item in data.get("results", []):
+        genres = [g["name"] for g in item.get("genres", [])]
+        platforms = [p["platform"]["name"] for p in item.get("platforms", [])]
         results.append(SearchResult(
             id=str(item["id"]),
             title=item.get("name"),
             type="game",
-            description=None,  # RAWG doesn't return full desc in search
-            poster_url=item["background_image"] if item.get("background_image") else None,
+            description=None,
+            poster_url=item.get("background_image"),
             year=(item.get("released") or "")[:4],
             source="rawg",
+            genres=genres + platforms,
+            rating=item.get("rating"),
+            rating_count=item.get("ratings_count"),
             total_seasons=None,
             total_episodes=None,
-            average_duration=None
+            average_duration=item.get("playtime") * 60 if item.get("playtime") else None  # convert hours to minutes
         ))
 
     return results

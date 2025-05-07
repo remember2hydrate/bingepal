@@ -24,6 +24,8 @@ query ($search: String) {
       }
       episodes
       duration
+      genres
+      averageScore
     }
   }
 }
@@ -47,16 +49,19 @@ async def search(query: str) -> list[SearchResult]:
     results = []
     for item in data["data"]["Page"]["media"]:
         results.append(SearchResult(
-            id=str(item["id"]),
-            title=item["title"]["english"] or item["title"]["romaji"],
-            type="anime",
-            description=item["description"],
-            poster_url=item["coverImage"]["large"],
-            year=item["startDate"]["year"],
-            source="anilist",
-            total_episodes=item.get("episodes"),
-            average_duration=item.get("duration"),
-            total_seasons=None
-        ))
+          id=str(item["id"]),
+          title=item["title"]["english"] or item["title"]["romaji"],
+          type="anime",
+          description=item["description"],
+          poster_url=item["coverImage"]["large"],
+          year=item["startDate"]["year"],
+          source="anilist",
+          genres=item.get("genres"),
+          rating=(item.get("averageScore") or 0) / 10,  # scale to 10
+          rating_count=None,  # Not available in AniList search
+          total_episodes=item.get("episodes"),
+          average_duration=item.get("duration"),
+          total_seasons=None
+      ))
 
     return results
