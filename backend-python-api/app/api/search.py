@@ -5,7 +5,7 @@ from app.models import SearchResult
 from app.services import tmdb, anilist, rawg, mangadex, openlibrary
 from slowapi import Limiter
 from slowapi.util import get_remote_address
-from app.main import limiter
+from app.utils.limiter import limiter
 
 router = APIRouter()
 

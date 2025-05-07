@@ -6,6 +6,7 @@ from typing import Optional, List
 import datetime
 from sqlalchemy import and_
 from fastapi import status
+from app.utils.limiter import limiter
 
 router = APIRouter()
 
@@ -27,6 +28,7 @@ async def get_db():
 
 
 @router.post("/rate", response_model=RatingOut)
+@limiter.limit("10/minute")
 async def add_or_update_rating(payload: RatingIn, db=Depends(get_db)):
     # Upsert (one rating per user+item)
     query = select(Rating).where(
@@ -50,6 +52,7 @@ async def add_or_update_rating(payload: RatingIn, db=Depends(get_db)):
 
 
 @router.get("/rate", response_model=List[RatingOut])
+@limiter.limit("10/minute")
 async def get_ratings(source: str, source_id: str, db=Depends(get_db)):
     query = select(Rating).where(
         and_(
@@ -64,6 +67,7 @@ async def get_ratings(source: str, source_id: str, db=Depends(get_db)):
 
 
 @router.delete("/rate", status_code=status.HTTP_204_NO_CONTENT)
+@limiter.limit("10/minute")
 async def delete_rating(source: str, source_id: str, username: str, db=Depends(get_db)):
     query = select(Rating).where(
         and_(
