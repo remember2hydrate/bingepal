@@ -43,7 +43,7 @@ async def search(query: str, type: str) -> list[SearchResult]:
             genres=genres,
             rating=item.get("vote_average"),
             rating_count=item.get("vote_count"),
-            total_seasons=None,
+            total_seasons=item.get("seasons") if type == "series" else None,
             total_episodes=None,
             average_duration=None
         ))
