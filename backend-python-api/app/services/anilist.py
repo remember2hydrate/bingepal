@@ -138,7 +138,7 @@ async def get_episodes(id: str) -> list[ChapterOut]:
             season=None,
             number=ep["mal_id"],
             title=ep.get("title") or f"Episode {ep['mal_id']}",
-            air_date=ep.get("aired", {}).get("date")
+            air_date = ep["aired"] if "aired" in ep and isinstance(ep["aired"], str) else None
         ))
 
     logger.info(f"[Jikan] Found {len(chapters)} episodes for anime {id}")
