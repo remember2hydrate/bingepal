@@ -4,13 +4,14 @@ from app.services import tmdb, anilist, rawg, openlibrary, mangadex
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 from app.utils.limiter import limiter
+from app.utils.request_log import log_request
 
 router = APIRouter()
 
 @router.get("/detail", response_model=SearchResult)
 async def get_detail(id: str = Query(...), type: str = Query(...)):
     type = type.lower()
-
+    await log_request(request)
     try:
         if type == "movie" or type == "series":
             return await tmdb.get_detail(id, type)

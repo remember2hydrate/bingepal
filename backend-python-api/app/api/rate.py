@@ -7,6 +7,7 @@ import datetime
 from sqlalchemy import and_
 from fastapi import status
 from app.utils.limiter import limiter
+from app.utils.request_log import log_request
 
 router = APIRouter()
 
@@ -29,6 +30,7 @@ async def get_db():
 
 @router.post("/rate", response_model=RatingOut)
 async def add_or_update_rating(payload: RatingIn, db=Depends(get_db)):
+    await log_request(request)
     # Upsert (one rating per user+item)
     query = select(Rating).where(
         Rating.username == payload.username,
