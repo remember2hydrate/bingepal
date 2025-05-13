@@ -3,6 +3,7 @@ from typing import List, Optional
 from pydantic import BaseModel
 from app.services import tmdb, anilist, mangadex
 from app.utils.request_log import log_request
+from fastapi import Request
 
 router = APIRouter()
 
