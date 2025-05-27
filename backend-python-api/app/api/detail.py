@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Query, HTTPException
+from fastapi import APIRouter, Query, HTTPException, Request
 from app.models import SearchResult
 from app.services import tmdb, anilist, rawg, openlibrary, mangadex
 from slowapi import Limiter
@@ -9,9 +9,9 @@ from app.utils.request_log import log_request
 router = APIRouter()
 
 @router.get("/detail", response_model=SearchResult)
-async def get_detail(id: str = Query(...), type: str = Query(...), request: Request):
-    type = type.lower()
+async def get_detail(request: Request, id: str = Query(...), type: str = Query(...)):
     await log_request(request)
+    type = type.lower()
     try:
         if type == "movie" or type == "series":
             return await tmdb.get_detail(id, type)
