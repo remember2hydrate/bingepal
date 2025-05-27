@@ -38,6 +38,6 @@ app.include_router(detail_router, prefix="/api")
 app.include_router(chapter_router, prefix="/api")
 
 
-#@app.get("/health")
-#def health_check():
-#    return {"status": "ok", "message": "BingePal API is alive"}
+@app.get("/health")
+def health_check():
+    return {"status": "ok", "message": "BingePal API is alive"}
