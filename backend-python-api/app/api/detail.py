@@ -9,7 +9,7 @@ from app.utils.request_log import log_request
 router = APIRouter()
 
 @router.get("/detail", response_model=SearchResult)
-async def get_detail(id: str = Query(...), type: str = Query(...)):
+async def get_detail(id: str = Query(...), type: str = Query(...), request: Request):
     type = type.lower()
     await log_request(request)
     try:
