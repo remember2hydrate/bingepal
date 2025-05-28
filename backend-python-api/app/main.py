@@ -1,7 +1,7 @@
-from fastapi import FastAPI
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from slowapi.errors import RateLimitExceeded
 from fastapi.middleware.cors import CORSMiddleware
 from app.models import Base, engine
@@ -11,6 +11,9 @@ from app.api.search import router as search_router
 from app.api.detail import router as detail_router
 from app.api.chapter import router as chapter_router
 from app.api.log import router as log_router
+
+from fastapi.exceptions import RequestValidationError
+import logging
 
 
 app = FastAPI(
@@ -35,6 +38,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    logging.error(f"Unhandled error: {exc}")
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "Internal Server Error"}
+    )
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    logging.error(f"Validation error: {exc}")
+    return JSONResponse(
+        status_code=422,
+        content={"detail": exc.errors()}
+    )
 
 app.include_router(search_router, prefix="/api")
 app.include_router(detail_router, prefix="/api")
@@ -45,3 +63,9 @@ app.include_router(log_router, prefix="/api")
 @app.get("/health")
 def health_check():
     return {"status": "ok", "message": "BingePal API is alive"}
+
+# DB startup
+@app.on_event("startup")
+async def on_startup():
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
