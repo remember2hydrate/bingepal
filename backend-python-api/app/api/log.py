@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db import get_db
 from app.models import SearchLog
-from app.schemas import LogEntry
+from app.models import LogEntry
 
 router = APIRouter()
 
