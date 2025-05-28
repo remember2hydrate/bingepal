@@ -1,14 +1,17 @@
 from fastapi import FastAPI
-from app.api.search import router as search_router
-from app.api.detail import router as detail_router
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from fastapi import FastAPI, Request
 from slowapi.errors import RateLimitExceeded
 from fastapi.middleware.cors import CORSMiddleware
 from app.models import Base, engine
-from app.api.chapter import router as chapter_router
 from app.utils.limiter import limiter
+
+from app.api.search import router as search_router
+from app.api.detail import router as detail_router
+from app.api.chapter import router as chapter_router
+from app.api.log import router as log_router
+
 
 app = FastAPI(
     title="BingePal API",
@@ -36,6 +39,7 @@ app.add_middleware(
 app.include_router(search_router, prefix="/api")
 app.include_router(detail_router, prefix="/api")
 app.include_router(chapter_router, prefix="/api")
+app.include_router(log_router, prefix="/api")
 
 
 @app.get("/health")

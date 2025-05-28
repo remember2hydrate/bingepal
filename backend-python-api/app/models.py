@@ -2,12 +2,13 @@
 
 from pydantic import BaseModel
 from typing import Optional, List
-from sqlalchemy import Column, String, Integer, DateTime, Float, ForeignKey, Enum, Text
+from sqlalchemy import Column, String, Integer, DateTime, Float, ForeignKey, Enum, Text, TIMESTAMP, func
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker, declarative_base
 import enum
 import datetime
 import os
+from app.db import Base
 
 DATABASE_URL = os.getenv("DATABASE_URL") 
 
@@ -66,3 +67,20 @@ class ChapterOut(BaseModel):
     number: int
     title: str
     air_date: Optional[str] = None
+
+class SearchLog(Base):
+    __tablename__ = "search_logs"
+
+    id = Column(Integer, primary_key=True, index=True)
+    source = Column(String, nullable=False)
+    source_id = Column(String, nullable=False)
+    type = Column(String, nullable=False)
+    title = Column(String, nullable=False)
+    timestamp = Column(TIMESTAMP, server_default=func.now())
+
+
+class LogEntry(BaseModel):
+    source: str
+    source_id: str
+    type: str
+    title: str
