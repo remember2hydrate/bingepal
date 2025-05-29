@@ -72,11 +72,11 @@ class SearchLog(Base):
     __tablename__ = "search_logs"
 
     id = Column(Integer, primary_key=True, index=True)
-    source = Column(String, nullable=False)
+    source = Column(String, nullable=False, index=True)
     source_id = Column(String, nullable=False)
-    type = Column(String, nullable=False)
+    type = Column(String, nullable=False, index=True)
     title = Column(String, nullable=False)
-    timestamp = Column(TIMESTAMP, server_default=func.now())
+    timestamp = Column(TIMESTAMP, server_default=func.now(), index=True)
 
 
 class LogEntry(BaseModel):
