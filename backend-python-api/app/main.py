@@ -12,6 +12,7 @@ from app.api.detail import router as detail_router
 from app.api.chapter import router as chapter_router
 from app.api.trending import router as trending_router
 from app.api.log import router as log_router
+from app.db import get_async_session
 
 from fastapi.exceptions import RequestValidationError
 import logging
