@@ -10,6 +10,7 @@ from app.utils.limiter import limiter
 from app.api.search import router as search_router
 from app.api.detail import router as detail_router
 from app.api.chapter import router as chapter_router
+from app.api.trending import router as trending_router
 from app.api.log import router as log_router
 
 from fastapi.exceptions import RequestValidationError
