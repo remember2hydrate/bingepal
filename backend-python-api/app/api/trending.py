@@ -4,7 +4,7 @@ from sqlalchemy.future import select
 from sqlalchemy import func
 from datetime import datetime, timedelta
 
-from app.db import get_async_session
+from app.db import get_db
 from app.models import SearchLog
 
 router = APIRouter()
@@ -13,7 +13,7 @@ router = APIRouter()
 async def get_trending(
     type: str = Query(..., description="Type of media (e.g., movie, series, anime)"),
     days: int = Query(7, description="Time range in days: 7 for week, 30 for month, 365 for year"),
-    session: AsyncSession = Depends(get_async_session),
+    session: AsyncSession = Depends(get_db),
 ):
     since = datetime.utcnow() - timedelta(days=days)
 
