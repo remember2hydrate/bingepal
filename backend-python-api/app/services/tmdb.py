@@ -39,7 +39,7 @@ async def search(query: str, type: str) -> list[SearchResult]:
             type=type,
             description=item.get("overview") or "No description available.",
             poster_url=f"https://image.tmdb.org/t/p/w500{item['poster_path']}" if item.get("poster_path") else None,
-            year=(item.get("release_date") or item.get("first_air_date") or "")[:4],
+            year=int((item.get("release_date") or item.get("first_air_date") or "")[:4]) if (item.get("release_date") or item.get("first_air_date") or "")[:4].isdigit() else None,
             source="tmdb",
             genres=genres,
             rating=item.get("vote_average"),
