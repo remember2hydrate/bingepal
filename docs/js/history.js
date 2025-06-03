@@ -11,7 +11,7 @@ function loadHistory() {
         const row = `
           <tr>
             <td>${index + 1}</td>
-            <td>${item.title}</td>
+            <td>${item.title} (${item.year})</td>
             <td>${item.count}</td>
           </tr>`;
         tbody.insertAdjacentHTML("beforeend", row);
