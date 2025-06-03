@@ -24,11 +24,31 @@ function loadTrends() {
         },
         options: {
           responsive: true,
+          maintainAspectRatio: false,
           plugins: {
-            legend: { display: false }
+            legend: {
+              labels: {
+                font: {
+                  size: window.innerWidth < 576 ? 10 : 14
+                }
+              }
+            }
           },
           scales: {
-            y: { beginAtZero: true, ticks: { precision: 0 } }
+            x: {
+              ticks: {
+                font: {
+                  size: window.innerWidth < 576 ? 8 : 12
+                }
+              }
+            },
+            y: {
+              ticks: {
+                font: {
+                  size: window.innerWidth < 576 ? 8 : 12
+                }
+              }
+            }
           }
         }
       });
