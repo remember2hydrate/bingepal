@@ -12,7 +12,14 @@ function loadTrends() {
 
       if (chart) chart.destroy();
 
-      chart = new Chart(document.getElementById("trendChart"), {
+      const canvas = document.getElementById("trendsChart");
+      const ctx = canvas?.getContext("2d");
+      if (!ctx) {
+        console.error("Failed to get 2D context");
+        return;
+      }
+
+      chart = new Chart(ctx, {
         type: "bar",
         data: {
           labels: labels,
