@@ -51,6 +51,9 @@ function loadTrends() {
             },
             y: {
               ticks: {
+                precision: 0,        // Removes decimal
+                stepSize: 1,         // Forces step of 1
+                beginAtZero: true,
                 font: {
                   size: window.innerWidth < 576 ? 8 : 12
                 }
