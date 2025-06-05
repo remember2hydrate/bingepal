@@ -1,6 +1,6 @@
 # BingePal
 
-**BingePal** is an open-source platform for exploring Movies, Series, Anime, Books, and Games.
+**BingePal** is an open-source platform for exploring Movies, Series, Anime, Books, Manga and Games.
 
 It consists of:
 
