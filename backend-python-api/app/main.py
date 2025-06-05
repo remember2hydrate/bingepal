@@ -11,6 +11,7 @@ from app.api.search import router as search_router
 from app.api.detail import router as detail_router
 from app.api.chapter import router as chapter_router
 from app.api.trending import router as trending_router
+from app.api.history import router as history_router
 from app.api.log import router as log_router
 from app.db import get_db
 
@@ -61,6 +62,7 @@ app.include_router(detail_router, prefix="/api")
 app.include_router(chapter_router, prefix="/api")
 app.include_router(log_router, prefix="/api")
 app.include_router(trending_router, prefix="/api")
+app.include_router(history_router, prefix="/api")
 
 
 @app.get("/health")

@@ -5,8 +5,9 @@ function loadHistory() {
     .then(data => {
       const logList = document.getElementById("logList");
       data.forEach(item => {
+        const formattedDate = new Date(item.timestamp).toLocaleString();
         const row = document.createElement("tr");
-        row.innerHTML = `<td>${item.timestamp}</td><td>${item.type}</td><td>${item.title}</td>`;
+        row.innerHTML = `<td>${formattedDate}</td><td>${item.type}</td><td>${item.title}</td>`;
         logList.appendChild(row);
       });
     });
