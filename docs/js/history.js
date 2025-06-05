@@ -1,22 +1,17 @@
 function loadHistory() {
   const type = document.getElementById("historyTypeSelect").value;
 
-  fetch(`https://bingepal.onrender.com/api/trending?type=${type}&days=3650`) // ~10 years = lifetime
+  fetch('https://bingepal.onrender.com/api/history?limit=50')
     .then(res => res.json())
     .then(data => {
-      const tbody = document.getElementById("historyTableBody");
-      tbody.innerHTML = "";
-
-      data.trending.forEach((item, index) => {
-        const row = `
-          <tr>
-            <td>${index + 1}</td>
-            <td>${item.title}</td>
-            <td>${item.count}</td>
-          </tr>`;
-        tbody.insertAdjacentHTML("beforeend", row);
+      const logList = document.getElementById("logList");
+      data.forEach(item => {
+        const row = document.createElement("tr");
+        row.innerHTML = `<td>${item.timestamp}</td><td>${item.type}</td><td>${item.title}</td>`;
+        logList.appendChild(row);
       });
     });
+
 }
 
 // Auto-load

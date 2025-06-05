@@ -12,35 +12,18 @@
   <div id="navbar"></div>
 
   <div class="container py-5">
-    <h2 class="mb-4 text-center">Most Searched Titles</h2>
-
-    <div class="row g-3 mb-4">
-      <div class="col-md-4">
-        <select class="form-select" id="historyTypeSelect" onchange="loadHistory()">
-          <option value="movie" selected>Movies</option>
-          <option value="anime">Anime</option>
-          <option value="series">TV Series</option>
-          <option value="game">Games</option>
-          <option value="book">Books</option>
-          <option value="manga">Manga</option>
-        </select>
-      </div>
-      <div class="col-md-4"></div>
-      <div class="col-md-4">
-        <button class="btn btn-dark w-100" onclick="loadHistory()">Load History</button>
-      </div>
-    </div>
+    <h2 class="mb-4 text-center">Recent Search Log</h2>
 
     <div class="table-responsive">
       <table class="table table-hover table-bordered bg-white">
         <thead class="table-light">
-          <tr>
-            <th>#</th>
-            <th>Title</th>
-            <th>Searches</th>
-          </tr>
+            <tr>
+              <th>Time</th>
+              <th>Type</th>
+              <th>Title</th>
+            </tr>
         </thead>
-        <tbody id="historyTableBody"></tbody>
+        <tbody id="logList"></tbody>
       </table>
     </div>
   </div>
