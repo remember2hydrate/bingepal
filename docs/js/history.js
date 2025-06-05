@@ -1,5 +1,4 @@
 function loadHistory() {
-  const type = document.getElementById("historyTypeSelect").value;
 
   fetch('https://bingepal.onrender.com/api/history?limit=50')
     .then(res => res.json())
