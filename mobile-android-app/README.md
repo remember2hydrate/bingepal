@@ -1,5 +1,14 @@
-# BingePal
+# BingePal Android App
 
-⚠️ This app uses an insecure HTTPS client (UnsafeOkHttpClient) for demo purposes. ⚠️
+This is the Android client for BingePal - a search app for movies, series, and anime.
 
-⚠️ Do not use this configuration in production. ⚠️
+🛠️ Built with:
+- Java
+- Retrofit + Glide
+- Separation of concerns across UI, networking, and data
+
+⚠️ **Note:** This app uses "UnsafeOkHttpClient" to support connections to demo HTTPS servers. 
+⚠️⚠️ **Do NOT use this approach in production.** 
+
+🔗 Try the app in-browser:  
+👉 https://appetize.io/app/b_lfzq47rczqqc7ash4oefempapi

@@ -1,6 +1,11 @@
 # BingePal
-BingePal is an open-source platform for tracking and exploring Movies, Series, Anime, Books, and Games.
 
-API URL - https://bingepal.onrender.com
-Search - /api/search?query=your_query&type=movie|series|anime
-Detail - /api/detail?type=movie|series|anime&id=external_id
+**BingePal** is an open-source platform for exploring Movies, Series, Anime, Books, and Games.
+
+It consists of:
+
+- 📱 An Android search app
+- 🚀 A FastAPI backend for search & data tracking
+- 📊 A web dashboard built with HTML + Bootstrap + Chart.js
+
+All parts communicate via a shared REST API - no accounts, no ads, just a full-stack demo project.
