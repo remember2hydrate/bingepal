@@ -8,4 +8,4 @@ Features:
 - 🌐 Live link to emulator demo of the Android app
 
 View it live at:  
-👉 https://remember2hydrate.github.io/BingePal/
+👉 https://remember2hydrate.github.io/bingepal/
