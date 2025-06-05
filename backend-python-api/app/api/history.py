@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-
+from datetime import timezone
 from app.db import get_db
 from app.models import SearchLog
 from typing import Optional
@@ -26,7 +26,7 @@ async def get_history(
         {
             "title": log.title,
             "type": log.type,
-            "timestamp": log.timestamp.isoformat(),
+            "timestamp": log.timestamp.replace(tzinfo=timezone.utc).isoformat(),
             "source": log.source,
             "source_id": log.source_id
         }
