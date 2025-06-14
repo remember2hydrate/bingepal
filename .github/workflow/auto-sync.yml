@@ -5,50 +5,44 @@ on:
     branches: [ main ]
 
 jobs:
-  debug-trigger:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Show commit message
-        run: echo "${{ github.event.head_commit.message }}"
-
   sync-backend:
-    if: contains(github.event.head_commit.message, '[sync-backend]')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
       - name: Push backend to backend repo
+        if: contains(github.event.head_commit.message, '[sync-backend]')
         run: |
+          echo "🛠 Syncing backend..."
           git config --global user.name "remember2hydrate"
           git config --global user.email "themistoklis.charmpis@outlook.com"
-
           git remote add backend https://remember2hydrate:${{ secrets.GH_PAT }}@github.com/remember2hydrate/backend-python-api.git
           git subtree push --prefix backend-python-api backend main
 
   sync-android:
-    if: contains(github.event.head_commit.message, '[sync-android]')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
       - name: Push android app to android repo
+        if: contains(github.event.head_commit.message, '[sync-android]')
         run: |
+          echo "📱 Syncing android..."
           git config --global user.name "remember2hydrate"
           git config --global user.email "themistoklis.charmpis@outlook.com"
-
           git remote add android https://remember2hydrate:${{ secrets.GH_PAT }}@github.com/remember2hydrate/mobile-android-app.git
           git subtree push --prefix mobile-android-app android main
 
   sync-web:
-    if: contains(github.event.head_commit.message, '[sync-web]')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
       - name: Push web to web repo
+        if: contains(github.event.head_commit.message, '[sync-web]')
         run: |
+          echo "🌐 Syncing web..."
           git config --global user.name "remember2hydrate"
           git config --global user.email "themistoklis.charmpis@outlook.com"
-
           git remote add web https://remember2hydrate:${{ secrets.GH_PAT }}@github.com/remember2hydrate/bingepal-web.git
           git subtree push --prefix docs web main
