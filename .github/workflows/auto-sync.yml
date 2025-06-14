@@ -16,7 +16,7 @@ jobs:
           echo "🛠 Syncing backend..."
           git config --global user.name "remember2hydrate"
           git config --global user.email "themistoklis.charmpis@outlook.com"
-          git remote add backend https://remember2hydrate:${{ secrets.GH_PAT }}@github.com/remember2hydrate/backend-python-api.git
+          git remote add backend https://remember2hydrate:${{ secrets.GH_PAT }}@github.com/remember2hydrate/bingepal-backend.git
           git subtree push --prefix backend-python-api backend main
 
   sync-android:
@@ -30,7 +30,7 @@ jobs:
           echo "📱 Syncing android..."
           git config --global user.name "remember2hydrate"
           git config --global user.email "themistoklis.charmpis@outlook.com"
-          git remote add android https://remember2hydrate:${{ secrets.GH_PAT }}@github.com/remember2hydrate/mobile-android-app.git
+          git remote add android https://remember2hydrate:${{ secrets.GH_PAT }}@github.com/remember2hydrate/bingepal-android.git
           git subtree push --prefix mobile-android-app android main
 
   sync-web:
