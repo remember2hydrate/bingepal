@@ -60,10 +60,9 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 app.include_router(search_router, prefix="/api")
 app.include_router(detail_router, prefix="/api")
 app.include_router(chapter_router, prefix="/api")
-app.include_router(log_router, prefix="/api")
 app.include_router(trending_router, prefix="/api")
 app.include_router(history_router, prefix="/api")
-
+app.include_router(log_router, prefix="/api")
 
 @app.get("/health")
 def health_check():
