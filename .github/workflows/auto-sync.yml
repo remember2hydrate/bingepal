@@ -13,11 +13,19 @@ jobs:
       - name: Push backend to backend repo
         if: contains(github.event.head_commit.message, '[sync-backend]')
         run: |
-          echo "🛠 Syncing backend...Token: ${{ secrets.GH_PAT }}"
-          git config --global user.name "remember2hydrate"
-          git config --global user.email "themistoklis.charmpis@outlook.com"
-          git remote add backend https://remember2hydrate:${{ secrets.GH_PAT }}@github.com/remember2hydrate/bingepal-backend.git
-          git subtree push --prefix backend-python-api backend main
+          echo "📦 Syncing backend..."
+          mkdir backend-sync
+          cp -r backend-python-api/* backend-sync/
+          cd backend-sync
+
+          git init
+          git config user.name "remember2hydrate"
+          git config user.email "themistoklis.charmpis@outlook.com"
+
+          git remote add origin https://remember2hydrate:${{ secrets.GH_PAT }}@github.com/remember2hydrate/backend-python-api.git
+          git add .
+          git commit -m "Auto-sync from monorepo"
+          git push --force origin main
 
   sync-android:
     runs-on: ubuntu-latest
@@ -27,12 +35,20 @@ jobs:
       - name: Push android app to android repo
         if: contains(github.event.head_commit.message, '[sync-android]')
         run: |
-          echo "📱 Syncing android...Token: ${{ secrets.GH_PAT }}"
-          git config --global user.name "remember2hydrate"
-          git config --global user.email "themistoklis.charmpis@outlook.com"
-          git remote add android https://remember2hydrate:${{ secrets.GH_PAT }}@github.com/remember2hydrate/bingepal-android.git
-          git subtree push --prefix mobile-android-app android main
+          echo "📱 Syncing android..."
+          mkdir android-sync
+          cp -r mobile-android-app/* android-sync/
+          cd android-sync
 
+          git init
+          git config user.name "remember2hydrate"
+          git config user.email "themistoklis.charmpis@outlook.com"
+
+          git remote add origin https://remember2hydrate:${{ secrets.GH_PAT }}@github.com/remember2hydrate/mobile-android-app.git
+          git add .
+          git commit -m "Auto-sync from monorepo"
+          git push --force origin main
+          
   sync-web:
     runs-on: ubuntu-latest
     steps:
@@ -41,8 +57,16 @@ jobs:
       - name: Push web to web repo
         if: contains(github.event.head_commit.message, '[sync-web]')
         run: |
-          echo "🌐 Syncing web...Token: ${{ secrets.GH_PAT }}"
-          git config --global user.name "remember2hydrate"
-          git config --global user.email "themistoklis.charmpis@outlook.com"
-          git remote add web https://remember2hydrate:${{ secrets.GH_PAT }}@github.com/remember2hydrate/bingepal-web.git
-          git subtree push --prefix docs web main
+          echo "🌐 Syncing web..."
+          mkdir web-sync
+          cp -r docs/* web-sync/
+          cd web-sync
+
+          git init
+          git config user.name "remember2hydrate"
+          git config user.email "themistoklis.charmpis@outlook.com"
+
+          git remote add origin https://remember2hydrate:${{ secrets.GH_PAT }}@github.com/remember2hydrate/bingepal-web.git
+          git add .
+          git commit -m "Auto-sync from monorepo"
+          git push --force origin main
