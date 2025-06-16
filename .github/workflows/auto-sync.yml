@@ -23,7 +23,7 @@ jobs:
           git config user.name "remember2hydrate"
           git config user.email "themistoklis.charmpis@outlook.com"
 
-          git remote add origin https://remember2hydrate:${{ secrets.GH_PAT }}@github.com/remember2hydrate/backend-python-api.git
+          git remote add origin https://remember2hydrate:${{ secrets.GH_PAT }}@github.com/remember2hydrate/bingepal-backend.git
           git add .
           git commit -m "Auto-sync from monorepo"
           git push --force origin main
@@ -46,7 +46,7 @@ jobs:
           git config user.name "remember2hydrate"
           git config user.email "themistoklis.charmpis@outlook.com"
 
-          git remote add origin https://remember2hydrate:${{ secrets.GH_PAT }}@github.com/remember2hydrate/mobile-android-app.git
+          git remote add origin https://remember2hydrate:${{ secrets.GH_PAT }}@github.com/remember2hydrate/bingepal-android.git
           git add .
           git commit -m "Auto-sync from monorepo"
           git push --force origin main
