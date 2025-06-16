@@ -13,7 +13,7 @@ jobs:
       - name: Push backend to backend repo
         if: contains(github.event.head_commit.message, '[sync-backend]')
         run: |
-          echo "🛠 Syncing backend..."
+          echo "🛠 Syncing backend...Token: ${{ secrets.GH_PAT }}"
           git config --global user.name "remember2hydrate"
           git config --global user.email "themistoklis.charmpis@outlook.com"
           git remote add backend https://remember2hydrate:${{ secrets.GH_PAT }}@github.com/remember2hydrate/bingepal-backend.git
@@ -27,7 +27,7 @@ jobs:
       - name: Push android app to android repo
         if: contains(github.event.head_commit.message, '[sync-android]')
         run: |
-          echo "📱 Syncing android..."
+          echo "📱 Syncing android...Token: ${{ secrets.GH_PAT }}"
           git config --global user.name "remember2hydrate"
           git config --global user.email "themistoklis.charmpis@outlook.com"
           git remote add android https://remember2hydrate:${{ secrets.GH_PAT }}@github.com/remember2hydrate/bingepal-android.git
@@ -41,7 +41,7 @@ jobs:
       - name: Push web to web repo
         if: contains(github.event.head_commit.message, '[sync-web]')
         run: |
-          echo "🌐 Syncing web..."
+          echo "🌐 Syncing web...Token: ${{ secrets.GH_PAT }}"
           git config --global user.name "remember2hydrate"
           git config --global user.email "themistoklis.charmpis@outlook.com"
           git remote add web https://remember2hydrate:${{ secrets.GH_PAT }}@github.com/remember2hydrate/bingepal-web.git
