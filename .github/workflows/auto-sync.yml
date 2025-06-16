@@ -19,6 +19,7 @@ jobs:
           cd backend-sync
 
           git init
+          git checkout -b main
           git config user.name "remember2hydrate"
           git config user.email "themistoklis.charmpis@outlook.com"
 
@@ -41,6 +42,7 @@ jobs:
           cd android-sync
 
           git init
+          git checkout -b main
           git config user.name "remember2hydrate"
           git config user.email "themistoklis.charmpis@outlook.com"
 
@@ -63,6 +65,7 @@ jobs:
           cd web-sync
 
           git init
+          git checkout -b main
           git config user.name "remember2hydrate"
           git config user.email "themistoklis.charmpis@outlook.com"
 
