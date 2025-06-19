@@ -9,3 +9,14 @@ It consists of:
 - 📊 A web dashboard built with HTML + Bootstrap + Chart.js
 
 All parts communicate via a shared REST API - no accounts, no ads, just a full-stack demo project.
+
+## ⚙️ CI/CD Workflows
+
+This project includes GitHub Actions pipelines for:
+
+- ✅ Linting and building the Android app  
+- ✅ Running backend tests on every push  
+- ✅ Deploying the web dashboard automatically  
+- ✅ Scheduled auto-sync to mirror subfolder projects into their respective standalone repos 
+
+These workflows ensure consistent integration and deployment across all components.
