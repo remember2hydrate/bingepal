@@ -7,12 +7,19 @@ fetch("https://bingepal.onrender.com/api/admin-logs", {
 .then(data => {
   const originalLogs = data.logs;
 
-  // Replace all ISO datetime strings with localized versions
   const formattedLogs = originalLogs.replace(
     /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z?/g,
     match => {
-      const date = new Date(match);
-      return isNaN(date) ? match : date.toLocaleString();
+      const utcDate = new Date(match);
+      if (isNaN(utcDate)) return match;
+
+      // Convert to local time explicitly
+      return utcDate.toLocaleString(undefined, {
+        year: "numeric", month: "short", day: "numeric",
+        hour: "2-digit", minute: "2-digit", second: "2-digit",
+        hour12: false,
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+      });
     }
   );
 
