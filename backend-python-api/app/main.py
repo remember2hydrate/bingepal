@@ -14,6 +14,7 @@ from app.api.trending import router as trending_router
 from app.api.history import router as history_router
 from app.api.log import router as log_router
 from app.db import get_db
+from app.api import admin
 
 from fastapi.exceptions import RequestValidationError
 import logging
@@ -63,6 +64,7 @@ app.include_router(chapter_router, prefix="/api")
 app.include_router(trending_router, prefix="/api")
 app.include_router(history_router, prefix="/api")
 app.include_router(log_router, prefix="/api")
+app.include_router(admin.router, prefix="/api")
 
 @app.get("/health")
 def health_check():
