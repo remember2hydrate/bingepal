@@ -18,19 +18,6 @@
   </main>
 
   <script src="js/init-navbar.js"></script>
-  <script>
-    fetch("https://bingepal.onrender.com/api/admin-logs", {
-      headers: {
-        Authorization: "Bearer my_secret_token"
-      }
-    })
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById("logOutput").value = data.logs;
-    })
-    .catch(err => {
-      document.getElementById("logOutput").value = "Error loading logs.";
-    });
-  </script>
+  <script src="js/admin.js"></script>
 </body>
 </html>
