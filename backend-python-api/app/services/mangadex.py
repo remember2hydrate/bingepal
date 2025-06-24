@@ -66,11 +66,7 @@ async def get_detail(id: str) -> SearchResult:
 
     try:
         async with httpx.AsyncClient() as client:
-            response = 
-                await client.get(
-                    f"https://api.mangadex.org/manga/{id}", 
-                    params={"includes[]": "cover_art"}
-                )
+            response = await client.get(f"https://api.mangadex.org/manga/{id}", params={"includes[]": "cover_art"})
             response.raise_for_status()
             data = response.json()["data"]
     except Exception as e:
