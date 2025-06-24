@@ -21,7 +21,7 @@ import logging
 
 app = FastAPI(
     title="BingePal API",
-    description="API for movies, anime, tv series, games and books",
+    description="API for movies, anime, tv series, games, manga and books",
     version="0.1.0"
 )
 
