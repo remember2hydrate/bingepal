@@ -29,16 +29,10 @@ async def search(query: str) -> list[SearchResult]:
                 ", ".join(item.get("author_name", [])[:3]) 
                 if item.get("author_name") 
                 else "No author listed.",
-            poster_url=
-                f"https://covers.openlibrary.org/b/olid/{item['cover_edition_key']}-L.jpg" 
-                if item.get("cover_edition_key") 
-                else None,
+            poster_url= f"https://covers.openlibrary.org/b/olid/{item['cover_edition_key']}-L.jpg" if item.get("cover_edition_key") else None,
             year=item.get("first_publish_year"),
             source="openlibrary",
-            genres=
-                item.get("subject", [])[:5] 
-                if item.get("subject") 
-                else None,
+            genres= item.get("subject", [])[:5] if item.get("subject") else None,
             rating=None,
             rating_count=None,
             total_seasons=None,
@@ -65,10 +59,7 @@ async def get_detail(id: str) -> SearchResult:
         id=id,
         title=data.get("title"),
         type="book",
-        description=
-            (data.get("description") or {}).get("value") 
-            if isinstance(data.get("description"), dict) 
-            else data.get("description"),
+        description= (data.get("description") or {}).get("value")  if isinstance(data.get("description"), dict) else data.get("description"),
         poster_url=None,  
         year=None,
         source="openlibrary",

@@ -83,10 +83,7 @@ async def get_detail(id: str) -> SearchResult:
         if rel["type"] == "cover_art":
             cover = rel["attributes"].get("fileName")
 
-    poster_url = 
-        f"https://uploads.mangadex.org/covers/{data['id']}/{cover}" 
-        if cover 
-        else None
+    poster_url = f"https://uploads.mangadex.org/covers/{data['id']}/{cover}" if cover else None
 
     return SearchResult(
         id=id,
@@ -128,10 +125,7 @@ async def get_chapters(id: str) -> list[ChapterOut]:
         attr = ch["attributes"]
         chapters.append(ChapterOut(
             season=None,
-            number=
-                int(attr["chapter"]) 
-                if attr.get("chapter", "").isdigit() 
-                else 0,
+            number= int(attr["chapter"]) if attr.get("chapter", "").isdigit() else 0,
             title=attr.get("title") or "Untitled",
             air_date=attr.get("publishAt")
         ))
