@@ -12,10 +12,10 @@ router = APIRouter()
 @router.get("/search", response_model=list[SearchResult])
 @limiter.limit("10/minute")
 async def search(
-        request: Request, 
-        query: str = Query(...), 
-        type: str = Query(...)
-    ):
+    request: Request, 
+    query: str = Query(...), 
+    type: str = Query(...)
+):
     type = type.lower()
     await log_request(request)
 

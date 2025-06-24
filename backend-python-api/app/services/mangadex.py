@@ -28,9 +28,7 @@ async def search(query: str) -> list[SearchResult]:
     for item in data.get("data", []):
         attr = item["attributes"]
         title = attr["title"].get("en") or list(attr["title"].values())[0]
-        description = 
-            attr.get("description", {}).get("en") 
-            or "No description."
+        description = attr.get("description", {}).get("en") or "No description."
         genres = [
             t["attributes"]["name"].get("en") 
             for t in attr.get("tags", []) 

@@ -1,5 +1,3 @@
-# anime handler from AniList and Jikan for episodes
-
 import httpx
 from app.models import SearchResult
 from app.utils.logger import logger
@@ -129,8 +127,7 @@ async def get_episodes(id: str) -> list[ChapterOut]:
     logger.info(f"[Jikan] Fetching episodes for anime ID: {id}")
     try:
         async with httpx.AsyncClient() as client:
-            response = await 
-              client.get(f"https://api.jikan.moe/v4/anime/{id}/episodes")
+            response = await client.get(f"https://api.jikan.moe/v4/anime/{id}/episodes")
             response.raise_for_status()
             data = response.json()
     except Exception as e:

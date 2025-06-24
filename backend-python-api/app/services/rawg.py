@@ -47,10 +47,7 @@ async def search(query: str) -> list[SearchResult]:
             rating_count=item.get("ratings_count"),
             total_seasons=None,
             total_episodes=None,
-            average_duration=
-                item.get("playtime") * 60 
-                if item.get("playtime") 
-                else None 
+            average_duration= item.get("playtime") * 60 if item.get("playtime") else None 
         ))
 
     return results
@@ -79,8 +76,7 @@ async def get_detail(id: str) -> SearchResult:
         poster_url=data.get("background_image"),
         year=(data.get("released") or "")[:4],
         source="rawg",
-        genres=[g["name"] for g in data.get("genres", [])] 
-            + [p["platform"]["name"] for p in data.get("platforms", [])],
+        genres=[g["name"] for g in data.get("genres", [])] + [p["platform"]["name"] for p in data.get("platforms", [])],
         rating=data.get("rating"),
         rating_count=data.get("ratings_count"),
         total_seasons=None,

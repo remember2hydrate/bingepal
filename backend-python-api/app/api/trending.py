@@ -12,18 +12,17 @@ router = APIRouter()
 
 @router.get("/trending")
 async def get_trending(
-        type: str = Query(
-            ..., 
-            description="Type of media (e.g., movie, series, anime)"
-        ),
-        days: int = Query(
-            7, 
-            description="Time range in days. Use 0 for all time."
-        ),
-        session: AsyncSession = Depends(get_db),
-    ):
-    stmt = select(SearchLog.title, func.count().label("count"))
-        .where(SearchLog.type == type)
+    type: str = Query(
+        ..., 
+        description="Type of media (e.g., movie, series, anime)"
+    ),
+    days: int = Query(
+        7, 
+        description="Time range in days. Use 0 for all time."
+    ),
+    session: AsyncSession = Depends(get_db),
+):
+    stmt = select(SearchLog.title, func.count().label("count")).where(SearchLog.type == type)
 
     if days > 0:
         since = datetime.utcnow() - timedelta(days=days)

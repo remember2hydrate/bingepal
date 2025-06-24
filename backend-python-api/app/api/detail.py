@@ -8,10 +8,10 @@ router = APIRouter()
 
 @router.get("/detail", response_model=SearchResult)
 async def get_detail(
-        request: Request, 
-        id: str = Query(...), 
-        type: str = Query(...)
-    ):
+    request: Request, 
+    id: str = Query(...), 
+    type: str = Query(...)
+):
     await log_request(request)
     type = type.lower()
     try:

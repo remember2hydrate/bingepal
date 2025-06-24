@@ -1,13 +1,6 @@
-# schemas
-
 from pydantic import BaseModel
 from typing import Optional, List
-from sqlalchemy 
-    import Column, 
-    String, Integer, 
-    DateTime, Float, 
-    ForeignKey, Enum, 
-    Text, TIMESTAMP, func
+from sqlalchemy import Column, String, Integer, DateTime, Float, ForeignKey, Enum, Text, TIMESTAMP, func
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker, declarative_base
 import enum

@@ -54,8 +54,7 @@ async def get_detail(id: str) -> SearchResult:
 
     try:
         async with httpx.AsyncClient() as client:
-            response = 
-                await client.get(f"https://openlibrary.org/works/{id}.json")
+            response = await client.get(f"https://openlibrary.org/works/{id}.json")
             response.raise_for_status()
             data = response.json()
     except Exception as e:

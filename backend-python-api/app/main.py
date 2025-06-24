@@ -52,9 +52,9 @@ async def global_exception_handler(request: Request, exc: Exception):
 
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(
-        request: Request, 
-        exc: RequestValidationError
-    ):
+    request: Request, 
+    exc: RequestValidationError
+):
     logging.error(f"Validation error: {exc}")
     return JSONResponse(
         status_code=422,
