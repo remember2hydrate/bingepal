@@ -19,7 +19,7 @@ function loadHistory() {
       });
     })
     .catch(err => {
-      console.error("Failed to load history:", err);
+      console.error("Failed to load history!");
     });
 }
 

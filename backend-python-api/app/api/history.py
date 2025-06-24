@@ -12,10 +12,7 @@ router = APIRouter()
 @router.get("/history")
 async def get_history(
     limit: int = Query(100, ge=1, le=500),
-    type: Optional[str] = Query(
-        None, 
-        description="movie, series, anime"
-    ),
+    type: Optional[str] = Query( None, description="movie, series, anime"),
     session: AsyncSession = Depends(get_db),
 ):
     stmt = select(SearchLog).order_by(SearchLog.timestamp.desc()).limit(limit)
