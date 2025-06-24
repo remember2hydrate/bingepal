@@ -25,13 +25,12 @@ async def get_history(
 
     result = await session.execute(stmt)
     logs = result.scalars().all()
-    logTime = logs.timestamp.replace(tzinfo=timezone.utc).isoformat()
 
     return [
         {
             "title": log.title,
             "type": log.type,
-            "timestamp": logTime,
+            "timestamp": logs.timestamp.replace(tzinfo=timezone.utc).isoformat(),
             "source": log.source,
             "source_id": log.source_id
         }
