@@ -15,7 +15,7 @@ All parts connect via a shared REST API — no accounts, no ads, just a full-sta
 
 ## 🐳 Docker Support
 
-To build and run the backend with Docker:
+To build and run the FastAPI backend with Docker:
 
 ```bash
 docker build -t bingepal-backend .
