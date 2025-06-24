@@ -14,7 +14,7 @@ async def get_history(
     limit: int = Query(100, ge=1, le=500),
     type: Optional[str] = Query(
         None, 
-        description="Optional filter: movie, series, anime"
+        description="movie, series, anime"
     ),
     session: AsyncSession = Depends(get_db),
 ):
