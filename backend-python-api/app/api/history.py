@@ -24,8 +24,8 @@ async def get_history(
         stmt = stmt.where(SearchLog.type == type)
 
     result = await session.execute(stmt)
-    log = result.scalars().all()
-    logTime = log.timestamp.replace(tzinfo=timezone.utc).isoformat()
+    logs = result.scalars().all()
+    logTime = logs.timestamp.replace(tzinfo=timezone.utc).isoformat()
 
     return [
         {

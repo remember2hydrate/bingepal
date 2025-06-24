@@ -40,10 +40,7 @@ async def search(query: str) -> list[SearchResult]:
             if rel["type"] == "cover_art":
                 cover = rel["attributes"].get("fileName")
 
-        poster_url = 
-            f"https://uploads.mangadex.org/covers/{item['id']}/{cover}" 
-            if cover 
-            else None
+        poster_url = f"https://uploads.mangadex.org/covers/{item['id']}/{cover}" if cover else None
 
         results.append(SearchResult(
             id=item["id"],

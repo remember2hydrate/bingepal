@@ -28,8 +28,7 @@ async def get_trending(
         since = datetime.utcnow() - timedelta(days=days)
         stmt = stmt.where(SearchLog.timestamp >= since)
 
-    stmt = stmt.group_by(SearchLog.title)
-        .order_by(func.count().desc()).limit(10)
+    stmt = stmt.group_by(SearchLog.title).order_by(func.count().desc()).limit(10)
     result = await session.execute(stmt)
 
     trending = [{"title": row[0], "count": row[1]} for row in result.all()]
