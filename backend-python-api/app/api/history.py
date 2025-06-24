@@ -27,7 +27,7 @@ async def get_history(
         {
             "title": log.title,
             "type": log.type,
-            "timestamp": logs.timestamp.replace(tzinfo=timezone.utc).isoformat(),
+            "timestamp": log.timestamp.replace(tzinfo=timezone.utc).isoformat(),
             "source": log.source,
             "source_id": log.source_id
         }
