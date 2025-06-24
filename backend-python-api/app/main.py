@@ -1,8 +1,6 @@
-from slowapi import Limiter, _rate_limit_exceeded_handler
-from slowapi.util import get_remote_address
+from slowapi import _rate_limit_exceeded_handler
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-from slowapi.errors import RateLimitExceeded
 from fastapi.middleware.cors import CORSMiddleware
 from app.models import Base, engine
 from app.utils.limiter import limiter
@@ -13,7 +11,6 @@ from app.api.chapter import router as chapter_router
 from app.api.trending import router as trending_router
 from app.api.history import router as history_router
 from app.api.log import router as log_router
-from app.db import get_db
 
 from fastapi.exceptions import RequestValidationError
 import logging
@@ -25,6 +22,7 @@ app = FastAPI(
     version="0.1.0"
 )
 
+
 async def init_db():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
@@ -35,11 +33,13 @@ app.add_exception_handler(429, _rate_limit_exceeded_handler)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Later sth like allow_origins=["https://admin.bingepal.com", "https://app.bingepal.com"]
+    allow_origins=["*"],  
+    # Later sth like allow_origins=["https://admin.bingepal.com", "https://app.bingepal.com"]
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
@@ -49,8 +49,12 @@ async def global_exception_handler(request: Request, exc: Exception):
         content={"detail": "Internal Server Error"}
     )
 
+
 @app.exception_handler(RequestValidationError)
-async def validation_exception_handler(request: Request, exc: RequestValidationError):
+async def validation_exception_handler(
+        request: Request, 
+        exc: RequestValidationError
+    ):
     logging.error(f"Validation error: {exc}")
     return JSONResponse(
         status_code=422,
@@ -64,9 +68,11 @@ app.include_router(trending_router, prefix="/api")
 app.include_router(history_router, prefix="/api")
 app.include_router(log_router, prefix="/api")
 
+
 @app.get("/health")
 def health_check():
     return {"status": "ok", "message": "BingePal API is alive"}
+
 
 # DB startup
 @app.on_event("startup")

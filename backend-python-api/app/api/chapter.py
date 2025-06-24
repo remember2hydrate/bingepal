@@ -17,7 +17,11 @@ class ChapterOut(BaseModel):
 
 
 @router.get("/chapter", response_model=List[ChapterOut])
-async def get_chapters(request: Request, type: str = Query(...), id: str = Query(...)):
+async def get_chapters(
+        request: Request, 
+        type: str = Query(...), 
+        id: str = Query(...)
+    ):
     type = type.lower()
     await log_request(request)
     logger.info(f"[Chapters] Requested type={type}, id={id}")
@@ -32,4 +36,7 @@ async def get_chapters(request: Request, type: str = Query(...), id: str = Query
             raise HTTPException(status_code=400, detail="Invalid media type")
     except Exception as e:
         logger.error(f"[Chapters] Failed for {type}:{id} - {e}")
-        raise HTTPException(status_code=500, detail=f"Failed to fetch chapters: {str(e)}")
+        raise HTTPException(
+            status_code=500, 
+            detail=f"Failed to fetch chapters: {str(e)}"
+        )

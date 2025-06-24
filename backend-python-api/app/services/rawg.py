@@ -5,12 +5,12 @@ import os
 import httpx
 from dotenv import load_dotenv
 from app.models import SearchResult
-from app.utils.logger import logger
 
 load_dotenv()
 
 API_KEY = os.getenv("RAWG_API_KEY")
 BASE_URL = "https://api.rawg.io/api/games"
+
 
 async def search(query: str) -> list[SearchResult]:
     logger.info(f"[RAWG] Searching '{query}'")
@@ -47,10 +47,14 @@ async def search(query: str) -> list[SearchResult]:
             rating_count=item.get("ratings_count"),
             total_seasons=None,
             total_episodes=None,
-            average_duration=item.get("playtime") * 60 if item.get("playtime") else None  # convert hours to minutes
+            average_duration=
+                item.get("playtime") * 60 
+                if item.get("playtime") 
+                else None 
         ))
 
     return results
+
 
 async def get_detail(id: str) -> SearchResult:
     logger.info(f"[RAWG] Fetching detail for game ID: {id}")
@@ -75,7 +79,8 @@ async def get_detail(id: str) -> SearchResult:
         poster_url=data.get("background_image"),
         year=(data.get("released") or "")[:4],
         source="rawg",
-        genres=[g["name"] for g in data.get("genres", [])] + [p["platform"]["name"] for p in data.get("platforms", [])],
+        genres=[g["name"] for g in data.get("genres", [])] 
+            + [p["platform"]["name"] for p in data.get("platforms", [])],
         rating=data.get("rating"),
         rating_count=data.get("ratings_count"),
         total_seasons=None,

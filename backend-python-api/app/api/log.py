@@ -6,6 +6,7 @@ from app.models import LogEntry
 
 router = APIRouter()
 
+
 @router.post("/log", status_code=status.HTTP_204_NO_CONTENT)
 async def log_entry(entry: LogEntry, db: AsyncSession = Depends(get_db)):
     log = SearchLog(**entry.dict())

@@ -7,6 +7,7 @@ from app.models import ChapterOut
 
 BASE_URL = "https://api.mangadex.org"
 
+
 async def search(query: str) -> list[SearchResult]:
     logger.info(f"[MangaDex] Searching '{query}'")
 
@@ -27,8 +28,13 @@ async def search(query: str) -> list[SearchResult]:
     for item in data.get("data", []):
         attr = item["attributes"]
         title = attr["title"].get("en") or list(attr["title"].values())[0]
-        description = attr.get("description", {}).get("en") or "No description."
-        genres = [t["attributes"]["name"].get("en") for t in attr.get("tags", []) if "attributes" in t]
+        description = 
+            attr.get("description", {}).get("en") 
+            or "No description."
+        genres = [
+            t["attributes"]["name"].get("en") 
+            for t in attr.get("tags", []) 
+            if "attributes" in t]
 
         # Find cover filename
         cover = None
@@ -36,7 +42,10 @@ async def search(query: str) -> list[SearchResult]:
             if rel["type"] == "cover_art":
                 cover = rel["attributes"].get("fileName")
 
-        poster_url = f"https://uploads.mangadex.org/covers/{item['id']}/{cover}" if cover else None
+        poster_url = 
+            f"https://uploads.mangadex.org/covers/{item['id']}/{cover}" 
+            if cover 
+            else None
 
         results.append(SearchResult(
             id=item["id"],
@@ -56,12 +65,17 @@ async def search(query: str) -> list[SearchResult]:
 
     return results
 
+
 async def get_detail(id: str) -> SearchResult:
     logger.info(f"[MangaDex] Fetching detail for manga ID: {id}")
 
     try:
         async with httpx.AsyncClient() as client:
-            response = await client.get(f"https://api.mangadex.org/manga/{id}", params={"includes[]": "cover_art"})
+            response = 
+                await client.get(
+                    f"https://api.mangadex.org/manga/{id}", 
+                    params={"includes[]": "cover_art"}
+                )
             response.raise_for_status()
             data = response.json()["data"]
     except Exception as e:
@@ -78,7 +92,10 @@ async def get_detail(id: str) -> SearchResult:
         if rel["type"] == "cover_art":
             cover = rel["attributes"].get("fileName")
 
-    poster_url = f"https://uploads.mangadex.org/covers/{data['id']}/{cover}" if cover else None
+    poster_url = 
+        f"https://uploads.mangadex.org/covers/{data['id']}/{cover}" 
+        if cover 
+        else None
 
     return SearchResult(
         id=id,
@@ -95,6 +112,7 @@ async def get_detail(id: str) -> SearchResult:
         total_episodes=None,
         average_duration=None
     )
+
 
 async def get_chapters(id: str) -> list[ChapterOut]:
     url = "https://api.mangadex.org/chapter"
@@ -119,12 +137,12 @@ async def get_chapters(id: str) -> list[ChapterOut]:
         attr = ch["attributes"]
         chapters.append(ChapterOut(
             season=None,
-            number=int(attr["chapter"]) if attr.get("chapter", "").isdigit() else 0,
+            number=
+                int(attr["chapter"]) 
+                if attr.get("chapter", "").isdigit() 
+                else 0,
             title=attr.get("title") or "Untitled",
             air_date=attr.get("publishAt")
         ))
 
     return chapters
-
-
-

@@ -1,15 +1,17 @@
 from fastapi import APIRouter, Query, HTTPException, Request
 from app.models import SearchResult
 from app.services import tmdb, anilist, rawg, openlibrary, mangadex
-from slowapi import Limiter
-from slowapi.util import get_remote_address
-from app.utils.limiter import limiter
 from app.utils.request_log import log_request
 
 router = APIRouter()
 
+
 @router.get("/detail", response_model=SearchResult)
-async def get_detail(request: Request, id: str = Query(...), type: str = Query(...)):
+async def get_detail(
+        request: Request, 
+        id: str = Query(...), 
+        type: str = Query(...)
+    ):
     await log_request(request)
     type = type.lower()
     try:
@@ -26,4 +28,7 @@ async def get_detail(request: Request, id: str = Query(...), type: str = Query(.
         else:
             raise HTTPException(status_code=400, detail="Invalid media type")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to fetch detail: {str(e)}")
+        raise HTTPException(
+            status_code=500, 
+            detail=f"Failed to fetch detail: {str(e)}"
+        )

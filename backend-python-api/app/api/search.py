@@ -3,16 +3,19 @@
 from fastapi import APIRouter, Query, HTTPException, Request
 from app.models import SearchResult
 from app.services import tmdb, anilist, rawg, mangadex, openlibrary
-from slowapi import Limiter
-from slowapi.util import get_remote_address
 from app.utils.limiter import limiter
 from app.utils.request_log import log_request
 
 router = APIRouter()
 
+
 @router.get("/search", response_model=list[SearchResult])
 @limiter.limit("10/minute")
-async def search(request:Request, query: str = Query(...), type: str = Query(...)):
+async def search(
+        request: Request, 
+        query: str = Query(...), 
+        type: str = Query(...)
+    ):
     type = type.lower()
     await log_request(request)
 

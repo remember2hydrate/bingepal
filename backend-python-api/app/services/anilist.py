@@ -55,6 +55,7 @@ query ($id: Int) {
 }
 """
 
+
 async def search(query: str) -> list[SearchResult]:
     logger.info(f"[AniList] Searching '{query}'")
 
@@ -86,9 +87,11 @@ async def search(query: str) -> list[SearchResult]:
           total_episodes=item.get("episodes"),
           average_duration=item.get("duration"),
           total_seasons=None
-      ))
+      )
+    )
 
     return results
+
 
 async def get_detail(id: str) -> SearchResult:
     logger.info(f"[AniList] Fetching detail for anime ID: {id}")
@@ -119,13 +122,15 @@ async def get_detail(id: str) -> SearchResult:
         total_seasons=None,
         total_episodes=data.get("episodes"),
         average_duration=data.get("duration")
-    )   
+    )
+
 
 async def get_episodes(id: str) -> list[ChapterOut]:
     logger.info(f"[Jikan] Fetching episodes for anime ID: {id}")
     try:
         async with httpx.AsyncClient() as client:
-            response = await client.get(f"https://api.jikan.moe/v4/anime/{id}/episodes")
+            response = await 
+              client.get(f"https://api.jikan.moe/v4/anime/{id}/episodes")
             response.raise_for_status()
             data = response.json()
     except Exception as e:
@@ -138,7 +143,10 @@ async def get_episodes(id: str) -> list[ChapterOut]:
             season=None,
             number=ep["mal_id"],
             title=ep.get("title") or f"Episode {ep['mal_id']}",
-            air_date = ep["aired"] if "aired" in ep and isinstance(ep["aired"], str) else None
+            air_date = 
+              ep["aired"]
+              if "aired" in ep and isinstance(ep["aired"], str)
+              else None
         ))
 
     logger.info(f"[Jikan] Found {len(chapters)} episodes for anime {id}")

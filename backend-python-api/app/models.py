@@ -2,19 +2,29 @@
 
 from pydantic import BaseModel
 from typing import Optional, List
-from sqlalchemy import Column, String, Integer, DateTime, Float, ForeignKey, Enum, Text, TIMESTAMP, func
+from sqlalchemy 
+    import Column, 
+    String, Integer, 
+    DateTime, Float, 
+    ForeignKey, Enum, 
+    Text, TIMESTAMP, func
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker, declarative_base
 import enum
 import datetime
 import os
-from app.db import Base
+#from app.db import Base
 
-DATABASE_URL = os.getenv("DATABASE_URL") 
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 engine = create_async_engine(DATABASE_URL, echo=True)
-SessionLocal = sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
+SessionLocal = sessionmaker(
+    engine, 
+    expire_on_commit=False, 
+    class_=AsyncSession
+)
 Base = declarative_base()
+
 
 class SearchResult(BaseModel):
     id: str
@@ -55,18 +65,20 @@ class Rating(Base):
     __tablename__ = "ratings"
 
     id = Column(Integer, primary_key=True, index=True)
-    source = Column(String, nullable=False)         # eg tmdb'
-    source_id = Column(String, nullable=False)      
+    source = Column(String, nullable=False)
+    source_id = Column(String, nullable=False)
     username = Column(String, ForeignKey("users.username"))
     rate_score = Column(Float, nullable=False)
     rate_descr = Column(Text)
     timestamp = Column(DateTime, default=datetime.datetime.utcnow)
+
 
 class ChapterOut(BaseModel):
     season: Optional[int] = None  # only for series/anime
     number: int
     title: str
     air_date: Optional[str] = None
+
 
 class SearchLog(Base):
     __tablename__ = "search_logs"
