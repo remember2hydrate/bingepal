@@ -59,7 +59,7 @@ async def get_detail(id: str) -> SearchResult:
         id=id,
         title=data.get("title"),
         type="book",
-        description= (data.get("description") or {}).get("value")  if isinstance(data.get("description"), dict) else data.get("description"),
+        description= (data.get("description") or {}).get("value") if isinstance(data.get("description"), dict) else data.get("description"),
         poster_url=None,  
         year=None,
         source="openlibrary",
