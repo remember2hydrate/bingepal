@@ -1,3 +1,5 @@
+import os
+
 from slowapi import _rate_limit_exceeded_handler
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import JSONResponse, PlainTextResponse
@@ -80,7 +82,7 @@ def health_check():
 async def get_dev_logs(request: Request):
     token = request.headers.get("Authorization")
     token_hash = sha256(token.encode()).hexdigest()
-    if token_hash != STORED_HASH:
+    if token_hash != os.getenv("STORED_HASH"):
         raise HTTPException(status_code=HTTP_401_UNAUTHORIZED, detail="Unauthorized")
 
     try:
