@@ -1,9 +1,11 @@
 from slowapi import _rate_limit_exceeded_handler
-from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI, Request, HTTPException
+from fastapi.responses import JSONResponse, PlainTextResponse
 from fastapi.middleware.cors import CORSMiddleware
 from app.models import Base, engine
 from app.utils.limiter import limiter
+
+from starlette.status import HTTP_401_UNAUTHORIZED
 
 from app.api.search import router as search_router
 from app.api.detail import router as detail_router
@@ -13,8 +15,9 @@ from app.api.history import router as history_router
 from app.api.log import router as log_router
 
 from fastapi.exceptions import RequestValidationError
-import logging
+from app.utils.logger import logger 
 
+logger.info("Backend started and logger initialized.")
 
 app = FastAPI(
     title="BingePal API",
@@ -43,7 +46,7 @@ app.add_middleware(
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
-    logging.error(f"Unhandled error: {exc}")
+    logger.error(f"Unhandled error: {exc}")
     return JSONResponse(
         status_code=500,
         content={"detail": "Internal Server Error"}
@@ -55,7 +58,7 @@ async def validation_exception_handler(
     request: Request, 
     exc: RequestValidationError
 ):
-    logging.error(f"Validation error: {exc}")
+    logger.error(f"Validation error: {exc}")
     return JSONResponse(
         status_code=422,
         content={"detail": exc.errors()}
@@ -73,9 +76,24 @@ app.include_router(log_router, prefix="/api")
 def health_check():
     return {"status": "ok", "message": "BingePal API is alive"}
 
+@api_router.get("/dev-logs", response_class=PlainTextResponse)
+async def get_dev_logs(request: Request):
+    token = request.headers.get("Authorization")
+    token_hash = sha256(token.encode()).hexdigest()
+    if token_hash != STORED_HASH:
+        raise HTTPException(status_code=HTTP_401_UNAUTHORIZED, detail="Unauthorized")
+
+    try:
+        log_path = os.path.join(os.path.dirname(__file__), "logs", "dev.log")
+        with open(log_path, "r") as f:
+            return f.read()
+    except Exception as e:
+        logger.error(f"Failed to read dev.log: {e}")
+        raise HTTPException(status_code=500, detail="Could not read log file.")
 
 # DB startup
 @app.on_event("startup")
 async def on_startup():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+
