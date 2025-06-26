@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   function showLogs(data) {
-    pWarning.hide();
+    pWarning.text = "";
     logsDiv.textContent = data;
     logsDiv.style.filter = "none";
     logsDiv.style.pointerEvents = "auto";
