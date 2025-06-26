@@ -16,7 +16,9 @@ formatter = logging.Formatter(
 console_handler = logging.StreamHandler()
 console_handler.setFormatter(formatter)
 
-file_handler = RotatingFileHandler("logs/dev.log", maxBytes=1_000_000, backupCount=3)
+log_file_path = os.path.join(os.path.dirname(__file__), "../../logs/dev.log")
+os.makedirs(os.path.dirname(log_file_path), exist_ok=True)
+file_handler = RotatingFileHandler(log_file_path, maxBytes=1_000_000, backupCount=3)
 file_handler.setFormatter(formatter)
 
 if not logger.hasHandlers():
