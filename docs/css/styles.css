@@ -82,7 +82,7 @@ canvas {
 }
 
 #clueModal .modal-body img {
-  max-width: 100px;
+  max-width: 90%;
   display: block;
   margin: auto;
 }

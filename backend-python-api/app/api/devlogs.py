@@ -14,8 +14,8 @@ async def get_dev_logs(request: Request):
     if not token:
         raise HTTPException(status_code=HTTP_401_UNAUTHORIZED, detail="Missing Authorization token")
 
-    token_hash = sha256(token.encode()).hexdigest()
-    if token_hash != os.getenv("STORED_HASH"):
+    #token_hash = sha256(token.encode()).hexdigest()
+    if token != os.getenv("STORED_HASH"):
         raise HTTPException(status_code=HTTP_401_UNAUTHORIZED, detail="Unauthorized")
 
     try:
