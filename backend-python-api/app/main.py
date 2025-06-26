@@ -15,6 +15,7 @@ from app.api.chapter import router as chapter_router
 from app.api.trending import router as trending_router
 from app.api.history import router as history_router
 from app.api.log import router as log_router
+from app.api.devlogs import router as devlog_router
 
 from fastapi.exceptions import RequestValidationError
 from app.utils.logger import logger 
@@ -72,26 +73,12 @@ app.include_router(chapter_router, prefix="/api")
 app.include_router(trending_router, prefix="/api")
 app.include_router(history_router, prefix="/api")
 app.include_router(log_router, prefix="/api")
+app.include_router(devlog_router, prefix="/api")
 
 
 @app.get("/health")
 def health_check():
     return {"status": "ok", "message": "BingePal API is alive"}
-
-@api_router.get("/dev-logs", response_class=PlainTextResponse)
-async def get_dev_logs(request: Request):
-    token = request.headers.get("Authorization")
-    token_hash = sha256(token.encode()).hexdigest()
-    if token_hash != os.getenv("STORED_HASH"):
-        raise HTTPException(status_code=HTTP_401_UNAUTHORIZED, detail="Unauthorized")
-
-    try:
-        log_path = os.path.join(os.path.dirname(__file__), "logs", "dev.log")
-        with open(log_path, "r") as f:
-            return f.read()
-    except Exception as e:
-        logger.error(f"Failed to read dev.log: {e}")
-        raise HTTPException(status_code=500, detail="Could not read log file.")
 
 # DB startup
 @app.on_event("startup")
