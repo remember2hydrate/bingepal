@@ -72,3 +72,17 @@ canvas {
   height: auto !important;
 }
 
+#logs {
+      white-space: pre-wrap;
+      font-family: monospace;
+      height: 60vh;
+      overflow-y: auto;
+      filter: blur(8px);
+      pointer-events: none;
+}
+
+#clueModal .modal-body img {
+  max-width: 100px;
+  display: block;
+  margin: auto;
+}
