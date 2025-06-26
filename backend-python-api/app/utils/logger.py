@@ -1,18 +1,4 @@
 import logging
-import sys
-
-logger = logging.getLogger("bingepal")
-logger.setLevel(logging.INFO)
-
-
-
-stream_handler = logging.StreamHandler(sys.stdout)
-stream_handler.setFormatter(formatter)
-
-if not logger.hasHandlers():
-    logger.addHandler(stream_handler)
-
-import logging
 from logging.handlers import RotatingFileHandler
 from collections import deque
 
