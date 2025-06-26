@@ -13,7 +13,9 @@ try:
         expire_on_commit=False
     )
     Base = declarative_base()
+    logger.info("==========================================")
     logger.info("Database engine initialized successfully.")
+    logger.info("------------------------------------------")
 except Exception as e:
     logger.error(f"Failed to initialize DB engine: {e}")
     raise
