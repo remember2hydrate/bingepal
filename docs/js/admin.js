@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const tokenInput = document.getElementById("tokenInput");
   const submitBtn = document.getElementById("submitToken");
   const msgBox = document.getElementById("msgBox");
-  const pWarning = document.getElementById("warn-p");
 
   const modal = new bootstrap.Modal(document.getElementById("clueModal"));
 
@@ -42,7 +41,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   function showLogs(data) {
-    pWarning.text = "";
+    document.getElementById("warn-p").style.display = "none";
     logsDiv.textContent = data;
     logsDiv.style.filter = "none";
     logsDiv.style.pointerEvents = "auto";
