@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const tokenInput = document.getElementById("tokenInput");
   const submitBtn = document.getElementById("submitToken");
   const msgBox = document.getElementById("msgBox");
+  const pWarning = document.getElementById("warn-p");
 
   const modal = new bootstrap.Modal(document.getElementById("clueModal"));
 
@@ -41,6 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   function showLogs(data) {
+    pWarning.hide();
     logsDiv.textContent = data;
     logsDiv.style.filter = "none";
     logsDiv.style.pointerEvents = "auto";
@@ -56,6 +58,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (result.ok) {
       localStorage.setItem("devTokenHash", hash);
+
       showLogs(result.logs);
     } else {
       msgBox.textContent = result.msg;

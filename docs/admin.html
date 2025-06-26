@@ -12,7 +12,7 @@
 
   <main class="container my-5 text-center">
     <h2 class="fw-bold">🔐 Admin Console</h2>
-    <p class="text-muted warning">This area is protected. Answer the riddle to unlock logs.</p>
+    <p class="text-muted" id="warn-p">This area is protected. Answer the riddle to unlock logs.</p>
 
     <div id="logs" class="bg-dark text-white p-3 rounded shadow-sm">Log preview is hidden until authenticated.</div>
   </main>
@@ -25,11 +25,12 @@
           <h5 class="modal-title" id="clueModalLabel">Access Challenge</h5>
         </div>
         <div class="modal-body">
+          <p class="mb-2 small">His plans were genius time and time again — until the King of Pirates yelled…</p>
           <img src="img/auth-clue.png" class="img-fluid rounded shadow" alt="hint" />
-          <p class="mb-2 small text-muted">His plans were genius time and time again — until the King of Pirates yelled…</p>
+          <p class="mt-3 text-muted small">© Toei Animation / Eiichiro Oda</p>
           <input type="text" id="tokenInput" class="form-control mb-2" placeholder="Enter answer..." />
           <button id="submitToken" class="btn btn-primary">Unlock</button>
-          <p class="mt-3 text-muted small">© Toei Animation / Eiichiro Oda</p>
+          
         </div>
       </div>
     </div>
