@@ -1,4 +1,18 @@
 import logging
+import sys
+
+logger = logging.getLogger("bingepal")
+logger.setLevel(logging.INFO)
+
+
+
+stream_handler = logging.StreamHandler(sys.stdout)
+stream_handler.setFormatter(formatter)
+
+if not logger.hasHandlers():
+    logger.addHandler(stream_handler)
+
+import logging
 from logging.handlers import RotatingFileHandler
 from collections import deque
 
@@ -32,4 +46,5 @@ if not logger.hasHandlers():
     logger.addHandler(memory_handler)
 
 # Expose the log buffer
-get_recent_logs = lambda: list(log_buffer)
+def get_recent_logs():
+    return list(log_buffer)
