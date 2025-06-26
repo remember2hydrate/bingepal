@@ -10,7 +10,7 @@ async def log_request(request: Request):
     query = str(request.url.query)
     method = request.method
     raw_ip = request.client.host
-    ip = anonymize_ip(raw)
+    ip = anonymize_ip(raw_ip)
 
     user_agent = request.headers.get("user-agent", "Unknown")
     if "Android" in user_agent:
