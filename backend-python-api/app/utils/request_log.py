@@ -28,5 +28,5 @@ async def log_request(request: Request):
 
     if user_agent == "Unknown":
         logger.info(f"[Request] {method} {path}?{query} from {ip}")
-    else
+    else:
         logger.info(f"[Request] {method} {path}?{query} from {ip} using {platform}")
