@@ -32,3 +32,5 @@ Includes GitHub Actions for:
 - ✅ Auto-syncing subfolder repos
 
 These workflows ensure continuous integration and consistent deployment across all components.
+
+📐 See [architecture.md](./architecture.md) for a technical breakdown.
