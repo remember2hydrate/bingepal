@@ -39,7 +39,7 @@ bingepal/
 
     Security: A simple SHA256-based token gate in devlogs.py, used in portfolio context
 
-    Logging: Logs stored accessed via /api/dev-logs route (token required)
+    Logging:  accessed via /api/dev-logs route (token required)
 
 
 ## 🌐 Web Dashboard
@@ -93,8 +93,6 @@ bingepal/
 ## 📤 Deployment
 
     Backend hosted on Render.com
-
-        Logs stored in memory (stdout visible via Render's dashboard)
 
     Frontend static site hosted on GitHub Pages
 
