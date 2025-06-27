@@ -1,4 +1,4 @@
-📐 BingePal – Architecture Overview
+### 📐 BingePal – Architecture Overview
 
 BingePal is a cross-platform demonstration project designed to showcase integration across:
 
@@ -10,7 +10,8 @@ BingePal is a cross-platform demonstration project designed to showcase integrat
 
     A lightweight Admin Console using browser-based auth and log introspection
 
-🧱 Project Structure
+
+## 🧱 Project Structure
 ```
 bingepal/
 ├── backend-python-api/
@@ -26,7 +27,8 @@ bingepal/
 ├── bingepal-android/      # Android Studio Java app
 └── logs/ (not used anymore)
 ```
-⚙️ Backend (FastAPI)
+
+## ⚙️ Backend (FastAPI)
 
     Python 3.11, served with uvicorn
 
@@ -36,17 +38,12 @@ bingepal/
 
     Security: A simple SHA256-based token gate in devlogs.py, used in portfolio context
 
-    Logging: Logs are captured in memory using a deque buffer instead of writing to dev.log
+    Logging: Logs stored in memory using deque for Render.com compatibility
 
-        Exposed with get_recent_logs() from utils/logger.py
+        Accessed via /api/dev-logs route (token required)
 
-Key Feature
 
-    Logs stored in memory using deque for Render.com compatibility
-
-    Accessed via /api/dev-logs route (token required)
-
-🌐 Web Dashboard
+## 🌐 Web Dashboard
 
     Static HTML served via GitHub Pages or local preview
 
@@ -60,7 +57,7 @@ Key Feature
 
     JS handles secure token hashing using browser-native crypto.subtle.digest
 
-📱 Android App
+## 📱 Android App
 
     Written in Java
 
@@ -68,7 +65,7 @@ Key Feature
 
     Built to simulate common media search and favorites flow
 
-🔒 Admin Access
+## 🔒 Admin Access
 
     A protected /api/dev-logs endpoint
 
@@ -80,7 +77,21 @@ Key Feature
 
     Web frontend (admin.html) handles the auth prompt and log rendering
 
-📤 Deployment
+## 🗄️ Database Schema
+
+    `search_logs` table
+
+    | Column      | Type     | Description                     |
+    |-------------|----------|---------------------------------|
+    | id          | Integer  | Primary key                     |
+    | source      | String   | Data source (e.g., TMDB)        |
+    | source_id   | String   | External item ID                |
+    | type        | String   | Content type (movie, anime, etc.) |
+    | title       | String   | Content title                   |
+    | timestamp   | Timestamp| Time of log creation            |
+    
+
+## 📤 Deployment
 
     Backend hosted on Render.com
 
