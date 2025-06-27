@@ -8,6 +8,8 @@ It includes:
 - 🚀 FastAPI backend for content search & tracking  
 - 📊 Web dashboard using HTML, Bootstrap & Chart.js
 
+All parts connect via a shared REST API — no accounts, no ads, just a full-stack demo.
+
 ## 🛠️ Features
 
 - REST API with FastAPI
@@ -16,10 +18,10 @@ It includes:
 - Token-based admin log console
 - Docker + CI/CD automation
 
-All parts connect via a shared REST API — no accounts, no ads, just a full-stack demo.
+## 🔗 Live API + Docs
 
-🔗 **Live Backend API**: [https://bingepal.onrender.com](https://bingepal.onrender.com)  
-📄 **Docs**: [https://bingepal.onrender.com/docs](https://bingepal.onrender.com/docs)
+**Live Backend API**: [https://bingepal.onrender.com](https://bingepal.onrender.com)  
+**Docs**: [https://bingepal.onrender.com/docs](https://bingepal.onrender.com/docs)
 
 ## 🐳 Docker Support
 
