@@ -6,7 +6,15 @@ It includes:
 
 - 📱 Android search app  
 - 🚀 FastAPI backend for content search & tracking  
-- 📊 Web dashboard using HTML, Bootstrap & Chart.js  
+- 📊 Web dashboard using HTML, Bootstrap & Chart.js
+
+## 🛠️ Features
+
+- REST API with FastAPI
+- Swagger UI docs
+- Android + Web client
+- Token-based admin log console
+- Docker + CI/CD automation
 
 All parts connect via a shared REST API — no accounts, no ads, just a full-stack demo.
 
