@@ -1,4 +1,4 @@
-### 📐 BingePal – Architecture Overview
+# 📐 BingePal – Architecture Overview
 
 BingePal is a cross-platform demonstration project designed to showcase integration across:
 
@@ -10,6 +10,7 @@ BingePal is a cross-platform demonstration project designed to showcase integrat
 
     A lightweight Admin Console using browser-based auth and log introspection
 
+This document complements the main [README](./README.md), with technical insights.
 
 ## 🧱 Project Structure
 ```
@@ -38,9 +39,7 @@ bingepal/
 
     Security: A simple SHA256-based token gate in devlogs.py, used in portfolio context
 
-    Logging: Logs stored in memory using deque for Render.com compatibility
-
-        Accessed via /api/dev-logs route (token required)
+    Logging: Logs stored accessed via /api/dev-logs route (token required)
 
 
 ## 🌐 Web Dashboard
@@ -106,7 +105,5 @@ bingepal/
         Run backend test suite
 
         Deploy web assets to gh-pages
-
-Simple code for demo readability
 
 In-memory optimizations to adapt for free-tier hosting
