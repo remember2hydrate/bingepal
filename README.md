@@ -44,3 +44,5 @@ Includes GitHub Actions for:
 These workflows ensure continuous integration and consistent deployment across all components.
 
 📐 See [architecture.md](./architecture.md) for a technical breakdown.
+
+*Note: Documentation was drafted and refined with AI assistance for clarity and structure.*
