@@ -10,6 +10,12 @@ It includes:
 
 All parts connect via a shared REST API — no accounts, no ads, just a full-stack demo.
 
+## ***Project Focus***
+
+***This project was designed as a backend-first demo of system structure and deployment practices.***
+
+***UI/UX and styling choices were kept intentionally minimal to highlight API architecture and backend engineering.***
+
 ## 🛠️ Features
 
 - REST API with FastAPI
