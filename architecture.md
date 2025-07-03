@@ -105,3 +105,5 @@ bingepal/
         Deploy web assets to gh-pages
 
 In-memory optimizations to adapt for free-tier hosting
+
+*Note: Documentation was drafted and refined with AI assistance for clarity and structure.*
