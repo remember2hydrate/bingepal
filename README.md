@@ -4,9 +4,9 @@ BingePal is an open-source platform for exploring Movies, Series, Anime, Books, 
 
 It includes:
 
-- 📱 Android search app  
-- 🚀 FastAPI backend for content search & tracking  
-- 📊 Web dashboard using HTML, Bootstrap & Chart.js
+- Android search app  
+- FastAPI backend for content search & tracking  
+- Web dashboard using HTML, Bootstrap & Chart.js
 
 All parts connect via a shared REST API — no accounts, no ads, just a full-stack demo.
 
@@ -36,10 +36,10 @@ docker run --env-file .env -p 8000:8000 bingepal-backend
 
 Includes GitHub Actions for:
 
-- ✅ Android build + lint  
-- ✅ Backend testing  
-- ✅ Web dashboard deployment  
-- ✅ Auto-syncing subfolder repos
+- Android build + lint  
+- Backend testing  
+- Web dashboard deployment  
+- Auto-syncing subfolder repos
 
 These workflows ensure continuous integration and consistent deployment across all components.
 
