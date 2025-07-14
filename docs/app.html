@@ -20,25 +20,64 @@
   <main class="container text-center mt-5 py-5">
     <h1 class="fw-bold mb-3">Live App Demo</h1>
 
-    <div class="alert alert-info small text-center mx-auto" role="alert" style="max-width: 720px;">
-      🚀 This Android app talks to a real backend! Launch it below and:
-      <ul class="list-unstyled mb-0 mt-2">
-        <li>1️⃣ Watch the <a href="https://bingepal.onrender.com" class="alert-link" target="_blank">API boot up</a></li>
-        <li>2️⃣ Launch emulator or <a href="assets/bingepal-demo.apk" class="alert-link" download>download APK</a></li>
-        <li>3️⃣ Search something… anything 🍿</li>
-        <li>4️⃣ View your search in the <a href="history.html" class="alert-link">History</a> or <a href="trends.html" class="alert-link">Trends</a> tab</li>
-      </ul>
+    <div id="demoStepsCarousel" class="carousel slide mb-5" data-bs-ride="carousel" style="max-width: 720px; margin: auto;">
+      <div class="carousel-inner text-start">
+        <div class="carousel-item active">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">1️⃣ Boot the Backend</h5>
+              <p class="card-text">Visit the FastAPI server to wake it up (Render cold starts may take a few seconds).</p>
+              <a href="https://bingepal.onrender.com" target="_blank" class="btn btn-outline-primary btn-sm">Open Backend</a>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">2️⃣ Launch the App</h5>
+              <p class="card-text">Use the emulator for a quick test or install the APK directly on your device.</p>
+              <a href="https://appetize.io/app/b_lfzq47rczqqc7ash4oefempapi" target="_blank" class="btn btn-primary btn-sm me-2">▶️ Emulator</a>
+              <a href="assets/bingepal-demo.apk" download class="btn btn-outline-secondary btn-sm">📦 APK</a>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">3️⃣ Make a Search</h5>
+              <p class="card-text">Look up any show, game, anime or book. Check the results and enjoy the live backend!</p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">4️⃣ Track Your Data</h5>
+              <p class="card-text">See your interactions with the app in the <a href="history.html">History</a> or in the <a href="trends.html">Trends</a> tabs — synced via the backend.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#demoStepsCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#demoStepsCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
 
-    <a href="https://appetize.io/app/b_lfzq47rczqqc7ash4oefempapi" target="_blank" class="btn btn-primary btn-lg shadow-sm mt-3">▶️ Launch Emulator</a>
 
+    <a href="https://appetize.io/app/b_lfzq47rczqqc7ash4oefempapi" target="_blank" class="btn btn-primary btn-lg shadow-sm mt-3">📦 Download APK</a>
+    <p class="mt-2 text-muted small">or</p>
+
+    <a href="assets/bingepal-demo.apk" download class="btn btn-outline-secondary btn-sm">▶️ Launch Emulator</a>
     <p class="mt-3 text-muted small">
       Provided via Appetize.io • <strong>Free Tier:</strong> 10 sessions/month (3 min each) • Works best on desktop
     </p>
-
-    <p class="mt-2 text-muted small">or</p>
-
-    <a href="assets/bingepal-demo.apk" download class="btn btn-outline-secondary btn-sm">📦 Download APK</a>
+    
   </main>
 
   <footer class="text-center text-muted mt-5 mb-3 small">
