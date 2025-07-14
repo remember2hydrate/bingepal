@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Segoe UI', sans-serif;
 }
@@ -21,6 +25,11 @@ body {
 .card-title {
   font-weight: 600;
   font-size: 1.1rem;
+}
+
+.card-body {
+  margin-left: 3em;
+  margin-right: 3em;
 }
 
 .navbar-brand {
